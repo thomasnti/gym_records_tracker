@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_records_tracker/features/workout/presentation/pages/add_workout_screen.dart';
 
 class AddWorkoutButton extends StatelessWidget {
   const AddWorkoutButton({super.key});
@@ -6,7 +7,13 @@ class AddWorkoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddWorkoutScreen(),
+            ));
+      },
       tooltip: 'Add a workout',
       label: Row(
         children: const [
