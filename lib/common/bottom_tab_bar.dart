@@ -33,6 +33,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
         ),
         body: Center(child: tabPages[_selectedTab]),
         floatingActionButton: const AddWorkoutButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

@@ -5,10 +5,20 @@ class AddWorkoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
+    return FloatingActionButton.extended(
       onPressed: () {},
       tooltip: 'Add a workout',
-      child: const Icon(Icons.add),
+      label: Row(
+        children: const [
+          Icon(Icons.add),
+          Text(
+            'Add workout',
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
