@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "305937274306",
+    "project_id": "gym-records-66c42",
+    "storage_bucket": "gym-records-66c42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305937274306:android:3b97fab6b55781e1edf25b",
+        "android_client_info": {
+          "package_name": "com.thomasdinas.gym_records_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305937274306-issfcomutaim3869cl8ju0nul5l9esi5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6H0gqqA_U19yrR_KyYgnK7z6fP-hh7iA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305937274306-issfcomutaim3869cl8ju0nul5l9esi5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
