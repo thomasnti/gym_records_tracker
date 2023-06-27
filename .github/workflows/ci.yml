@@ -1,0 +1,26 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - master
+  
+jobs:
+  flutter_test_analyze:
+    name: Run flutter test, analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+      - name: "Setup JAVA"
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: "Setup Flutter"
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.12'
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+    
