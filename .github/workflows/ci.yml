@@ -20,7 +20,10 @@ jobs:
         with:
           flutter-version: '3.7.12'
           channel: "stable"
-      - run: flutter pub get
-      - run: flutter analyze
-      - run: flutter test
+      - name: "Install Flutter dependencies"
+        run: flutter pub get
+      - name: "🔬 Analyze files"
+        run: flutter analyze
+      - name: "🧪 Run the tests"
+        run: flutter test
     
