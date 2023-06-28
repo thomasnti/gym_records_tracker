@@ -1,13 +1,11 @@
-name: CI
-on:
-  pull_request:
-    branches:
-      - master
-  
+name: Build iOS
+on: workflow_dispatch
+
+
 jobs:
-  flutter_test_analyze:
-    name: Run flutter test, analyze
-    runs-on: ubuntu-latest
+  build_ios:
+    name: Build Flutter (iOS)
+    runs-on: macos-latest
     steps:
       - name: "📥 Check-out"
         uses: actions/checkout@v2
@@ -19,10 +17,10 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.7.12'
-          channel: "stable"
+          channel: "stable"  
       - name: "Install Flutter dependencies"
         run: flutter pub get
-      - name: "🔬 Analyze files"
-        run: flutter analyze
-      - name: "🧪 Run the tests"
-        run: flutter test
+      - name: "Clean the project"
+        run: flutter clean
+      - name: "iOS Build"
+        run: flutter build ios
