@@ -27,3 +27,21 @@ jobs:
       - name: "🧪 Run the tests"
         run: flutter test
     
+  
+  build_ios:
+    name: Build Flutter (iOS)
+    needs: [flutter_test_analyze]
+    runs-on: macos-latest
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+      - name: "Setup JAVA"
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: "Install Flutter dependencies"
+        run: flutter pub get
+      - name: "Clean the project"
+        run: flutter clean
+      - name: "iOS Build"
+        run: flutter build ios
