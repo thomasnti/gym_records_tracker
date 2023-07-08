@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gym_records_tracker/features/workout/presentation/pages/add_workout_screen.dart';
+
+import '../../features/workout/presentation/pages/add_workout_page.dart';
 
 class AddWorkoutButton extends StatelessWidget {
   const AddWorkoutButton({super.key});
@@ -11,7 +12,7 @@ class AddWorkoutButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddWorkoutScreen(),
+              builder: (context) => const AddWorkoutPage(),
             ));
       },
       tooltip: 'Add a workout',
