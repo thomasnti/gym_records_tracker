@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddWorkoutScreen extends StatelessWidget {
-  const AddWorkoutScreen({super.key});
+class AddWorkoutPage extends StatelessWidget {
+  const AddWorkoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
