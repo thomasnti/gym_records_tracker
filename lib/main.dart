@@ -5,6 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'common/theme/app_theme.dart';
 import 'dependency_injection/dependency_injection.dart';
 import 'features/main_page/presentation/cubit/main_page_cubit.dart';
 import 'features/main_page/presentation/pages/main_page.dart';
@@ -28,7 +29,10 @@ Future<void> main() async {
   };
 
   configureDependencies();
-  runApp(const GymRecords());
+  runApp(BlocProvider<MainPageCubit>(
+    create: (context) => MainPageCubit(),
+    child: const GymRecords(),
+  ));
 }
 
 class GymRecords extends StatelessWidget {
@@ -36,12 +40,15 @@ class GymRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MainPageCubit>(
-      create: (context) => MainPageCubit(),
-      child: const MaterialApp(
-        // home: BottomTabBar(),
-        home: MainPage(),
-      ),
+    final mainPageCubit = BlocProvider.of<MainPageCubit>(context, listen: true);
+    final themeMode = mainPageCubit.state.themeMode == ThemeMode.light
+        ? AppTheme.lightTheme
+        : AppTheme.darkTheme;
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: themeMode,
+      home: const MainPage(),
     );
   }
 }

@@ -16,6 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BlocBuilder<MainPageCubit, MainPageState>(
       builder: (context, state) {
         return BottomNavigationBar(
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
           items: getTabBarItems(),
           currentIndex: state.tabIndex,
           onTap: (index) =>
