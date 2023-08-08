@@ -8,7 +8,9 @@ class WorkoutLogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text('here you will see previous workouts'),
+      body: Center(
+        child: Text('here you will see previous workouts'),
+      ),
       floatingActionButton: AddWorkoutButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

@@ -17,8 +17,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> tabPages = [
     const WorkoutLogPage(),
     const ExercisesPage(),
-    // const Text(
-    const Text('Statistics - i dont know what'),
+    const Center(child: Text('Statistics - i dont know what')),
   ];
   @override
   Widget build(BuildContext context) {
@@ -26,6 +25,21 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('Gym Records'),
         centerTitle: true,
+        actions: [
+          BlocBuilder<MainPageCubit, MainPageState>(
+            builder: (context, state) {
+              final isLightTheme = state.themeMode == ThemeMode.light;
+              return IconButton(
+                onPressed: () =>
+                    BlocProvider.of<MainPageCubit>(context).changeThemeMode(),
+                // if it is light mode you want to show the dark mode button
+                icon: isLightTheme
+                    ? const Icon(Icons.dark_mode)
+                    : const Icon(Icons.light_mode),
+              );
+            },
+          )
+        ],
       ),
       body: BlocBuilder<MainPageCubit, MainPageState>(
         builder: (context, state) {
