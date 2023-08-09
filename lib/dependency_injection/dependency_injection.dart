@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mediatr/mediatr.dart';
 
+import '../features/workout/domain/usecases/register_handlers.dart';
 import 'dependency_injection.config.dart';
 
 final getIt = GetIt.instance;
@@ -10,4 +12,12 @@ final getIt = GetIt.instance;
   preferRelativeImports: true, // default
   asExtension: true, // default
 )
-void configureDependencies() => getIt.initDependencies();
+void configureDependencies() {
+  getIt
+    ..registerLazySingleton<Mediator>(
+      () => Mediator(Pipeline()),
+    )
+    ..initDependencies();
+
+  registerWorkoutHandlers();
+}

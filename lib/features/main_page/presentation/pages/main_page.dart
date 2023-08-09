@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../workout/presentation/pages/exercises_page.dart';
+import '../../../workout/presentation/pages/body_parts_page.dart';
 import '../cubit/main_page_cubit.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'workout_log_page.dart';
@@ -16,7 +16,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final List<Widget> tabPages = [
     const WorkoutLogPage(),
-    const ExercisesPage(),
+    const BodyPartsPage(),
     const Center(child: Text('Statistics - i dont know what')),
   ];
   @override
