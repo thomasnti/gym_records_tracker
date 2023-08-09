@@ -1,25 +1,49 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/body_parts.dart';
+import '../../data/exercises_data.dart';
 
 class ExercisesPage extends StatelessWidget {
-  const ExercisesPage({super.key});
+  final String bodyPart;
+  final List<ExerciseInfo> bodyPartAvailableExercises;
+
+  const ExercisesPage({
+    required this.bodyPart,
+    required this.bodyPartAvailableExercises,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    const List<BodyParts> bodyParts = BodyParts.values;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(bodyPart),
+      ),
+      body: buildExercisesPageBody(),
+    );
+  }
 
+  Widget buildExercisesPageBody() {
+    if (bodyPartAvailableExercises.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Center(
+            child: Text(
+          'There are no available exercises for this muscle group!',
+          textAlign: TextAlign.center,
+        )),
+      );
+    }
     return ListView.builder(
-      itemCount: bodyParts.length,
+      itemCount: bodyPartAvailableExercises.length,
       itemBuilder: (context, index) {
-        final bodyPart = bodyParts[index];
+        final exercise = bodyPartAvailableExercises[index];
 
         return DecoratedBox(
           decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.grey))),
+            border: Border(bottom: BorderSide(color: Colors.grey)),
+          ),
           child: ListTile(
-            title: Text(bodyPart.name),
-            leading: const Icon(Icons.amp_stories_rounded),
+            title: Text(exercise.name),
           ),
         );
       },

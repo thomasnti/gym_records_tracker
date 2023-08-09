@@ -16,11 +16,11 @@ class AddWorkoutButton extends StatelessWidget {
             ));
       },
       tooltip: 'Add a workout',
-      label: Row(
-        children: const [
+      label: const Row(
+        children: [
           Icon(Icons.add),
           Text(
-            'Add workout',
+            'Begin workout',
             style: TextStyle(
               fontSize: 18,
             ),
