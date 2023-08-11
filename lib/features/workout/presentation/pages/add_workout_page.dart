@@ -28,6 +28,9 @@ class AddWorkoutPage extends StatelessWidget {
                   isFromWorkout: true,
                 );
               }
+              if (state is ExerciseSelected) {
+                return Text(state.selectedExercise);
+              }
               return Padding(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                 child: Column(

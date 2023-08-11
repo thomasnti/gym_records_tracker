@@ -30,21 +30,7 @@ Future<void> main() async {
   };
 
   configureDependencies();
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider<MainPageCubit>(
-        create: (context) => MainPageCubit(),
-      ),
-      BlocProvider<WorkoutBloc>(
-        create: (context) => WorkoutBloc(),
-      )
-    ],
-    child: const GymRecords(),
-  ));
-  // runApp(BlocProvider<MainPageCubit>(
-  //   create: (context) => MainPageCubit(),
-  //   child: const GymRecords(),
-  // ));
+  runApp(const GymRecords());
 }
 
 class GymRecords extends StatelessWidget {
@@ -52,15 +38,28 @@ class GymRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainPageCubit = BlocProvider.of<MainPageCubit>(context, listen: true);
-    final themeMode = mainPageCubit.state.themeMode == ThemeMode.light
-        ? AppTheme.lightTheme
-        : AppTheme.darkTheme;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MainPageCubit>(
+          create: (context) => MainPageCubit(),
+        ),
+        BlocProvider<WorkoutBloc>(
+          create: (context) => WorkoutBloc(),
+        ),
+      ],
+      child: BlocBuilder<MainPageCubit, MainPageState>(
+        builder: (context, state) {
+          final themeMode = state.themeMode == ThemeMode.light
+              ? AppTheme.lightTheme
+              : AppTheme.darkTheme;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: themeMode,
-      home: const MainPage(),
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeMode,
+            home: const MainPage(),
+          );
+        },
+      ),
     );
   }
 }

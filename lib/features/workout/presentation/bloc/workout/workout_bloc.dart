@@ -1,8 +1,7 @@
-// ignore: depend_on_referenced_packages
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 part 'workout_event.dart';
@@ -31,6 +30,6 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     Emitter<WorkoutState> emit,
   ) {
     // print(event.selectedExercise);
-    emit(WorkoutFinished());
+    emit(ExerciseSelected(event.selectedExercise));
   }
 }
