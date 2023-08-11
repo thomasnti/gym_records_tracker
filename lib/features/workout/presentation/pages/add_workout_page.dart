@@ -29,6 +29,7 @@ class AddWorkoutPage extends StatelessWidget {
                 );
               }
               if (state is ExerciseSelected) {
+                //* Here I will make a new widget (Exercise widget) which will consist of sets
                 return Text(state.selectedExercise);
               }
               return Padding(
