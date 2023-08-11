@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../dependency_injection/dependency_injection.dart';
-import '../../features/workout/presentation/bloc/workout/workout_bloc.dart';
 import '../../features/workout/presentation/pages/add_workout_page.dart';
 
 class AddWorkoutButton extends StatelessWidget {
@@ -15,10 +12,7 @@ class AddWorkoutButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BlocProvider<WorkoutBloc>(
-                create: (context) => getIt<WorkoutBloc>(),
-                child: const AddWorkoutPage(),
-              ),
+              builder: (context) => const AddWorkoutPage(),
             ));
       },
       tooltip: 'Add a workout',

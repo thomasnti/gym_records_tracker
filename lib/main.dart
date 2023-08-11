@@ -9,6 +9,7 @@ import 'common/theme/app_theme.dart';
 import 'dependency_injection/dependency_injection.dart';
 import 'features/main_page/presentation/cubit/main_page_cubit.dart';
 import 'features/main_page/presentation/pages/main_page.dart';
+import 'features/workout/presentation/bloc/workout/workout_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -29,10 +30,21 @@ Future<void> main() async {
   };
 
   configureDependencies();
-  runApp(BlocProvider<MainPageCubit>(
-    create: (context) => MainPageCubit(),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<MainPageCubit>(
+        create: (context) => MainPageCubit(),
+      ),
+      BlocProvider<WorkoutBloc>(
+        create: (context) => WorkoutBloc(),
+      )
+    ],
     child: const GymRecords(),
   ));
+  // runApp(BlocProvider<MainPageCubit>(
+  //   create: (context) => MainPageCubit(),
+  //   child: const GymRecords(),
+  // ));
 }
 
 class GymRecords extends StatelessWidget {
