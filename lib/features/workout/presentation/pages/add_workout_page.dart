@@ -5,7 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/domain/date_time_service.dart';
 import '../../../../dependency_injection/dependency_injection.dart';
+import '../../domain/entities/exercise.dart';
 import '../bloc/workout/workout_bloc.dart';
+import '../widgets/exercise_set_widget.dart';
+import '../widgets/workout_date.dart';
+import '../widgets/workout_duration.dart';
 import 'body_parts_page.dart';
 
 class AddWorkoutPage extends StatelessWidget {
@@ -23,76 +27,40 @@ class AddWorkoutPage extends StatelessWidget {
           ),
           body: BlocBuilder<WorkoutBloc, WorkoutState>(
             builder: (context, state) {
-              if (state is WorkoutExerciceAdd) {
+              if (state.showBodyParts) {
                 return BodyPartsPage(
                   isFromWorkout: true,
                 );
               }
-              if (state is ExerciseSelected) {
-                //* Here I will make a new widget (Exercise widget) which will consist of sets
-                return Text(state.selectedExercise);
-              }
               return Padding(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: TextEditingController(
-                                text: getIt<DateTimeService>()
-                                    .formatToFullDateWithDayName(
-                                        DateTime.now())),
-                            decoration: InputDecoration(
-                              labelText: 'Workout Date',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: TextEditingController(
-                                text: getIt<DateTimeService>()
-                                    .getHourMinuteFromDt(DateTime.now())),
-                            decoration: InputDecoration(
-                              labelText: 'Start Time',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                labelText: 'End Time',
-                                border: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.green, width: 2))),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      WorkoutDate(),
+                      SizedBox(height: 10),
+                      WorkoutDuration(),
+                      SizedBox(height: 20),
+                      if (state.exercises.isNotEmpty)
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.exercises.length,
+                          itemBuilder: (context, index) {
+                            return buildExerciseColumn(
+                                context, state, state.exercises[index]);
+                          },
+                        )
+                    ],
+                  ),
                 ),
               );
             },
           ),
-          floatingActionButton: (state is! WorkoutExerciceAdd)
+          floatingActionButton: (!state.showBodyParts)
               ? FloatingActionButton.extended(
                   onPressed: () {
-                    context
-                        .read<WorkoutBloc>()
-                        .add(AddExerciseToWorkoutEvent());
+                    context.read<WorkoutBloc>().add(SelectBodyPartEvent());
                   },
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15.0))),
@@ -116,4 +84,64 @@ class AddWorkoutPage extends StatelessWidget {
       },
     );
   }
+
+  Widget buildExerciseColumn(
+    BuildContext context,
+    WorkoutState state,
+    Exercise exercise,
+  ) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              exercise.exerciseName,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            // Icon(Icons.more_vert)
+            PopupMenuButton(
+              itemBuilder: (context) {
+                return [PopupMenuItem(child: Text('Copy'))];
+              },
+            )
+          ],
+        ),
+        SizedBox(height: 20),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          // primary: false,
+          itemCount: state.exerciseSets.length,
+          itemBuilder: (context, index) {
+            return ExerciseSetWidget(
+              exerciseSet: state.exerciseSets[index],
+            );
+          },
+        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () {
+                context.read<WorkoutBloc>().add(AddSetToExerciseEvent());
+              },
+              child: Text(
+                'Add Set',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+            ))
+      ],
+    );
+  }
 }
+
+  // List<Widget> buildExerciseSets(WorkoutState state) {
+  //   if (state.exerciseSets != null) {
+  //     return state.exerciseSets!.map((e) {
+  //       return ExerciseSetWidget();
+  //     }).toList();
+  //   }
+
+  //   return [SizedBox.shrink()];
+  // }

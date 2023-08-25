@@ -52,7 +52,7 @@ class ExercisesPage extends StatelessWidget {
                     Navigator.of(context).pop();
                     context
                         .read<WorkoutBloc>()
-                        .add(ExerciseSelectedEvent(exercise.name));
+                        .add(AddExerciseToWorkoutEvent(exercise.name));
                     // Navigator.of(context).pop();
                   }
                 : null,
