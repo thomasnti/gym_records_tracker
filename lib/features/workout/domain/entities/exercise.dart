@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 /// Represents an exercise with various properties such as the exercise name,
 /// number of sets, number of repetitions, weight in kilograms, and body parts
 /// targeted by the exercise.
-class Exercise {
+class Exercise extends Equatable {
   /// The name of the exercise.
   final String exerciseName;
 
@@ -25,4 +27,21 @@ class Exercise {
     this.repetitions = 0,
     this.kilos = 0,
   });
+
+  Exercise increaseSets() {
+    return Exercise(
+      exerciseName: exerciseName,
+      sets: sets + 1,
+      repetitions: repetitions,
+      kilos: kilos,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        exerciseName,
+        sets,
+        repetitions,
+        kilos,
+      ];
 }

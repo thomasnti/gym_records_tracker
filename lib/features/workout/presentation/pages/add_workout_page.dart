@@ -113,7 +113,8 @@ class AddWorkoutPage extends StatelessWidget {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           // primary: false,
-          itemCount: state.exerciseSets.length,
+          // itemCount: state.exerciseSets.length,
+          itemCount: exercise.sets,
           itemBuilder: (context, index) {
             return ExerciseSetWidget(
               exerciseSet: state.exerciseSets[index],
@@ -124,7 +125,9 @@ class AddWorkoutPage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: TextButton(
               onPressed: () {
-                context.read<WorkoutBloc>().add(AddSetToExerciseEvent());
+                context
+                    .read<WorkoutBloc>()
+                    .add(AddSetToExerciseEvent(exercise.exerciseName));
               },
               child: Text(
                 'Add Set',

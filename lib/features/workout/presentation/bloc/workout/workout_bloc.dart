@@ -44,7 +44,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) {
     final exercises = [
       ...state.exercises,
-      Exercise(exerciseName: event.selectedExercise)
+      Exercise(exerciseName: event.selectedExercise, sets: 1)
     ];
 
     emit(
@@ -61,19 +61,31 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     AddSetToExerciseEvent event,
     Emitter<WorkoutState> emit,
   ) {
-    if (state.exerciseSets.isNotEmpty) {
-      final setNo = state.exerciseSetNumber + 1;
-      final exerciseSets = [
-        ...state.exerciseSets,
-        ExerciseSet(setNumber: setNo)
-      ];
+    final currentExerciseIndex = state.exercises
+        .indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
 
-      emit(
-        state.copyWith(
-          exerciseSets: exerciseSets,
-          exerciseSetNumber: setNo,
-        ),
-      );
-    }
+    final updatedExercise =
+        state.exercises[currentExerciseIndex].increaseSets();
+
+    state.exercises[currentExerciseIndex] = updatedExercise;
+    final newExercises = state.exercises;
+    print(state.exercises);
+    emit(state.copyWith(exercises: newExercises));
+
+//     if (state.exerciseSets.isNotEmpty) {
+//       final setNo = state.exerciseSetNumber + 1;
+//       final exerciseSets = [
+//         ...state.exerciseSets,
+//         ExerciseSet(setNumber: setNo)
+//       ];
+
+// // I must find which exercise i am adding a set and increse it
+//       emit(
+//         state.copyWith(
+//           exerciseSets: exerciseSets,
+//           exerciseSetNumber: setNo,
+//         ),
+//       );
+//     }
   }
 }
