@@ -26,6 +26,7 @@ dependencies:
   mediatr: ^0.2.0
   shared_preferences: ^2.1.1
   sqflite: ^2.3.0
+  wakelock: ^0.6.2
 
 dev_dependencies:
   bloc_test: ^9.1.1
