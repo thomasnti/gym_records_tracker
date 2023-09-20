@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'exercise_set.dart';
+
 /// Represents an exercise with various properties such as the exercise name,
 /// number of sets, number of repetitions, weight in kilograms, and body parts
 /// targeted by the exercise.
@@ -7,41 +9,26 @@ class Exercise extends Equatable {
   /// The name of the exercise.
   final String exerciseName;
 
-  /// The number of sets for the exercise.
-  final int sets;
-
-  /// The number of repetitions per set for the exercise.
-  final int repetitions;
-
-  /// The weight in kilograms used for the exercise.
-  final double kilos;
-
-  /// The body parts targeted by the exercise.
-  // final BodyParts bodyPart;
+  final List<ExerciseSet> exerciseSets;
 
   /// Creates a new instance of the [Exercise] class.
-  Exercise({
+  const Exercise({
     required this.exerciseName,
-    // required this.bodyPart,
-    this.sets = 0,
-    this.repetitions = 0,
-    this.kilos = 0,
+    this.exerciseSets = const [],
   });
 
-  Exercise increaseSets() {
-    return Exercise(
-      exerciseName: exerciseName,
-      sets: sets + 1,
-      repetitions: repetitions,
-      kilos: kilos,
-    );
-  }
+  Exercise copyWith({
+    String? exerciseName,
+    List<ExerciseSet>? exerciseSets,
+  }) =>
+      Exercise(
+        exerciseName: exerciseName ?? this.exerciseName,
+        exerciseSets: exerciseSets ?? this.exerciseSets,
+      );
 
   @override
   List<Object?> get props => [
         exerciseName,
-        sets,
-        repetitions,
-        kilos,
+        exerciseSets,
       ];
 }

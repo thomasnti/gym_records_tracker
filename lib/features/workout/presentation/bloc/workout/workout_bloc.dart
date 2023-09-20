@@ -44,15 +44,15 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) {
     final exercises = [
       ...state.exercises,
-      Exercise(exerciseName: event.selectedExercise, sets: 1)
+      Exercise(exerciseName: event.selectedExercise, exerciseSets: [ExerciseSet(setNumber: 1)])
     ];
 
     emit(
       state.copyWith(
         showBodyParts: false,
         exercises: exercises,
-        exerciseSetNumber: 1,
-        exerciseSets: [ExerciseSet(setNumber: 1)],
+        // exerciseSetNumber: 1,
+        // exerciseSets: [ExerciseSet(setNumber: 1)],
       ),
     );
   }
@@ -61,31 +61,24 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     AddSetToExerciseEvent event,
     Emitter<WorkoutState> emit,
   ) {
-    final currentExerciseIndex = state.exercises
-        .indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
+    // In Dart, when you assign an object from one variable to another, you're actually creating a reference to the same object in memory. So, if state.exercises[currentExerciseIndex] is a reference to the same object as currentExercise, any changes you make to currentExercise will also affect state.exercises[currentExerciseIndex] because they both point to the same object in memory.
 
-    final updatedExercise =
-        state.exercises[currentExerciseIndex].increaseSets();
+    final currentExerciseIndex = state.exercises.indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
 
+    final currentExercise = state.exercises[currentExerciseIndex];
+    final currentExerciseSetNum = currentExercise.exerciseSets.length;
+    final updatedExercise = currentExercise.copyWith(
+      exerciseSets: [
+        ...currentExercise.exerciseSets,
+        ExerciseSet(setNumber: currentExerciseSetNum + 1),
+      ],
+    );
+
+    // * It is needed
     state.exercises[currentExerciseIndex] = updatedExercise;
-    final newExercises = state.exercises;
-    print(state.exercises);
-    emit(state.copyWith(exercises: newExercises));
 
-//     if (state.exerciseSets.isNotEmpty) {
-//       final setNo = state.exerciseSetNumber + 1;
-//       final exerciseSets = [
-//         ...state.exerciseSets,
-//         ExerciseSet(setNumber: setNo)
-//       ];
-
-// // I must find which exercise i am adding a set and increse it
-//       emit(
-//         state.copyWith(
-//           exerciseSets: exerciseSets,
-//           exerciseSetNumber: setNo,
-//         ),
-//       );
-//     }
+    emit(state.copyWith(
+      exerciseSets: updatedExercise.exerciseSets,
+    ));
   }
 }

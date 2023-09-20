@@ -22,8 +22,7 @@ class AddWorkoutPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
-                getIt<DateTimeService>().formatToMonthNameDay(DateTime.now())),
+            title: Text(getIt<DateTimeService>().formatToMonthNameDay(DateTime.now())),
           ),
           body: BlocBuilder<WorkoutBloc, WorkoutState>(
             builder: (context, state) {
@@ -47,8 +46,7 @@ class AddWorkoutPage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: state.exercises.length,
                           itemBuilder: (context, index) {
-                            return buildExerciseColumn(
-                                context, state, state.exercises[index]);
+                            return buildExerciseColumn(context, state, state.exercises[index]);
                           },
                         )
                     ],
@@ -62,8 +60,7 @@ class AddWorkoutPage extends StatelessWidget {
                   onPressed: () {
                     context.read<WorkoutBloc>().add(SelectBodyPartEvent());
                   },
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
                   label: const Row(
                     children: [
                       Icon(Icons.add),
@@ -90,6 +87,7 @@ class AddWorkoutPage extends StatelessWidget {
     WorkoutState state,
     Exercise exercise,
   ) {
+    print('buildExerciseColumn');
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -114,10 +112,12 @@ class AddWorkoutPage extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           // primary: false,
           // itemCount: state.exerciseSets.length,
-          itemCount: exercise.sets,
+          itemCount: exercise.exerciseSets.length,
           itemBuilder: (context, index) {
             return ExerciseSetWidget(
-              exerciseSet: state.exerciseSets[index],
+              exerciseSet: exercise.exerciseSets[index],
+              //? this adds sets to all exercises
+              // exerciseSet: state.exerciseSets[index],
             );
           },
         ),
@@ -125,9 +125,7 @@ class AddWorkoutPage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: TextButton(
               onPressed: () {
-                context
-                    .read<WorkoutBloc>()
-                    .add(AddSetToExerciseEvent(exercise.exerciseName));
+                context.read<WorkoutBloc>().add(AddSetToExerciseEvent(exercise.exerciseName));
               },
               child: Text(
                 'Add Set',
