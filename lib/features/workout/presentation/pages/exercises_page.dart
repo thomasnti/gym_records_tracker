@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/exercises_data.dart';
+import '../bloc/workout/workout_bloc.dart';
 
 class ExercisesPage extends StatelessWidget {
   final String bodyPart;
   final List<ExerciseInfo> bodyPartAvailableExercises;
+  final bool isFromWorkout;
 
   const ExercisesPage({
     required this.bodyPart,
     required this.bodyPartAvailableExercises,
+    this.isFromWorkout = false,
     super.key,
   });
 
@@ -43,6 +47,15 @@ class ExercisesPage extends StatelessWidget {
             border: Border(bottom: BorderSide(color: Colors.grey)),
           ),
           child: ListTile(
+            onTap: isFromWorkout
+                ? () {
+                    Navigator.of(context).pop();
+                    context
+                        .read<WorkoutBloc>()
+                        .add(AddExerciseToWorkoutEvent(exercise.name));
+                    // Navigator.of(context).pop();
+                  }
+                : null,
             title: Text(exercise.name),
           ),
         );

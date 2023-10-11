@@ -1,18 +1,22 @@
-import 'dart:ui';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'common/theme/app_theme.dart';
 import 'dependency_injection/dependency_injection.dart';
 import 'features/main_page/presentation/cubit/main_page_cubit.dart';
 import 'features/main_page/presentation/pages/main_page.dart';
+import 'features/workout/presentation/bloc/workout/workout_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (kDebugMode) {
+    await Wakelock.enable();
+  }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -29,10 +33,7 @@ Future<void> main() async {
   };
 
   configureDependencies();
-  runApp(BlocProvider<MainPageCubit>(
-    create: (context) => MainPageCubit(),
-    child: const GymRecords(),
-  ));
+  runApp(const GymRecords());
 }
 
 class GymRecords extends StatelessWidget {
@@ -40,15 +41,28 @@ class GymRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainPageCubit = BlocProvider.of<MainPageCubit>(context, listen: true);
-    final themeMode = mainPageCubit.state.themeMode == ThemeMode.light
-        ? AppTheme.lightTheme
-        : AppTheme.darkTheme;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MainPageCubit>(
+          create: (context) => MainPageCubit(),
+        ),
+        BlocProvider<WorkoutBloc>(
+          create: (context) => WorkoutBloc(),
+        ),
+      ],
+      child: BlocBuilder<MainPageCubit, MainPageState>(
+        builder: (context, state) {
+          final themeMode = state.themeMode == ThemeMode.light
+              ? AppTheme.lightTheme
+              : AppTheme.darkTheme;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: themeMode,
-      home: const MainPage(),
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeMode,
+            home: const MainPage(),
+          );
+        },
+      ),
     );
   }
 }

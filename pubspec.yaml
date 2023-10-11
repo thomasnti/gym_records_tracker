@@ -21,10 +21,12 @@ dependencies:
   get_it: ^7.5.0
   http: ^0.13.6
   injectable: ^2.1.1
+  intl: ^0.18.0
   json_annotation: ^4.8.1
   mediatr: ^0.2.0
   shared_preferences: ^2.1.1
   sqflite: ^2.3.0
+  wakelock: ^0.6.2
 
 dev_dependencies:
   bloc_test: ^9.1.1

@@ -7,7 +7,12 @@ import '../bloc/exercise/cubit/exercise_cubit.dart';
 import 'exercises_page.dart';
 
 class BodyPartsPage extends StatelessWidget {
-  const BodyPartsPage({super.key});
+  final bool isFromWorkout;
+
+  const BodyPartsPage({
+    this.isFromWorkout = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +47,7 @@ class BodyPartsPage extends StatelessWidget {
         builder: (context) => ExercisesPage(
           bodyPart: bodyPartName,
           bodyPartAvailableExercises: exercises,
+          isFromWorkout: isFromWorkout,
         ),
       ),
     );

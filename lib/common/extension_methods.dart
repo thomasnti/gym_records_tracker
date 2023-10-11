@@ -4,3 +4,7 @@ extension StringExtensions on String {
     return '${lowerCaseString[0].toUpperCase()}${substring(1)}';
   }
 }
+
+extension TwoDigitExtension on int {
+  String asTwoDigitString() => toString().padLeft(2, '0');
+}
