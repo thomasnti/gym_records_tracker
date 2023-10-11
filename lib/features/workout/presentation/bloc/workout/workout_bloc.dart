@@ -44,7 +44,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) {
     final exercises = [
       ...state.exercises,
-      Exercise(exerciseName: event.selectedExercise, exerciseSets: [ExerciseSet(setNumber: 1)])
+      Exercise(exerciseName: event.selectedExercise, exerciseSets: const [ExerciseSet(setNumber: 1)])
     ];
 
     emit(

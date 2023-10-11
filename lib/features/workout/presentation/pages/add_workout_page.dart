@@ -87,21 +87,60 @@ class AddWorkoutPage extends StatelessWidget {
     WorkoutState state,
     Exercise exercise,
   ) {
-    print('buildExerciseColumn');
+    // print('buildExerciseColumn');
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              exercise.exerciseName,
-              style: Theme.of(context).textTheme.titleLarge,
+            Flexible(
+              child: Text(
+                exercise.exerciseName,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
-            // Icon(Icons.more_vert)
-            PopupMenuButton(
-              itemBuilder: (context) {
-                return [PopupMenuItem(child: Text('Copy'))];
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.info_outline,
+                              size: 30,
+                            ),
+                            label: Text(
+                              'Exercise Details',
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.delete,
+                              size: 30,
+                            ),
+                            label: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(Colors.red),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
             )
           ],
@@ -137,12 +176,12 @@ class AddWorkoutPage extends StatelessWidget {
   }
 }
 
-  // List<Widget> buildExerciseSets(WorkoutState state) {
-  //   if (state.exerciseSets != null) {
-  //     return state.exerciseSets!.map((e) {
-  //       return ExerciseSetWidget();
-  //     }).toList();
-  //   }
+// List<Widget> buildExerciseSets(WorkoutState state) {
+//   if (state.exerciseSets != null) {
+//     return state.exerciseSets!.map((e) {
+//       return ExerciseSetWidget();
+//     }).toList();
+//   }
 
-  //   return [SizedBox.shrink()];
-  // }
+//   return [SizedBox.shrink()];
+// }
