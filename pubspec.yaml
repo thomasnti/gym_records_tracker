@@ -41,6 +41,10 @@ dev_dependencies:
   json_serializable: ^6.6.2
   mocktail: ^0.3.0
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/app_logo_rounded.png"
+
 flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
