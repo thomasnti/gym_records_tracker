@@ -11,14 +11,13 @@ class GetAvailableExercisesByMuscleGroup extends IQuery<List<ExerciseInfo>> {
 }
 
 @injectable
-class GetAvailableExercisesByMuscleGroupHandler extends IRequestHandler<
-    List<ExerciseInfo>, GetAvailableExercisesByMuscleGroup> {
+class GetAvailableExercisesByMuscleGroupHandler
+    extends IRequestHandler<List<ExerciseInfo>, GetAvailableExercisesByMuscleGroup> {
   final ExerciseRepo _exerciseRepo;
 
   GetAvailableExercisesByMuscleGroupHandler(this._exerciseRepo);
   @override
-  Future<List<ExerciseInfo>> call(
-      GetAvailableExercisesByMuscleGroup request) async {
+  Future<List<ExerciseInfo>> call(GetAvailableExercisesByMuscleGroup request) async {
     final availableExercises = await _exerciseRepo.getAvailableExercises();
     final List<ExerciseInfo> exercisesForSpecificMuscle = [];
 

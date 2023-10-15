@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/workout/presentation/pages/add_workout_page.dart';
+import '../../../features/workout/presentation/pages/add_workout_page.dart';
 
 class AddWorkoutButton extends StatelessWidget {
   const AddWorkoutButton({super.key});

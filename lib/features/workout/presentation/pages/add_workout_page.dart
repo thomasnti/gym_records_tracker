@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/domain/date_time_service.dart';
+import '../../../../common/domain/services/date_time_service.dart';
 import '../../../../dependency_injection/dependency_injection.dart';
 import '../../domain/entities/exercise.dart';
 import '../bloc/workout/workout_bloc.dart';
@@ -60,7 +60,8 @@ class AddWorkoutPage extends StatelessWidget {
                   onPressed: () {
                     context.read<WorkoutBloc>().add(SelectBodyPartEvent());
                   },
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
                   label: const Row(
                     children: [
                       Icon(Icons.add),

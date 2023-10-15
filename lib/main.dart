@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wakelock/wakelock.dart';
 
-import 'common/theme/app_theme.dart';
+import 'common/presentation/theme/app_theme.dart';
 import 'dependency_injection/dependency_injection.dart';
 import 'features/main_page/presentation/cubit/main_page_cubit.dart';
 import 'features/main_page/presentation/pages/main_page.dart';
@@ -52,9 +52,8 @@ class GymRecords extends StatelessWidget {
       ],
       child: BlocBuilder<MainPageCubit, MainPageState>(
         builder: (context, state) {
-          final themeMode = state.themeMode == ThemeMode.light
-              ? AppTheme.lightTheme
-              : AppTheme.darkTheme;
+          final themeMode =
+              state.themeMode == ThemeMode.light ? AppTheme.lightTheme : AppTheme.darkTheme;
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,

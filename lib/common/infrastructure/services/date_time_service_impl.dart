@@ -1,15 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 
-import '../domain/date_time_service.dart';
-import '../extension_methods.dart';
+import '../../domain/services/date_time_service.dart';
+import '../../extension_methods.dart';
 
 @LazySingleton(as: DateTimeService)
 class DateTimeServiceImpl extends DateTimeService {
   @override
   String getHourMinuteFromDt(DateTime dateTime) {
-    final date =
-        '${dateTime.hour.asTwoDigitString()}:${dateTime.minute.asTwoDigitString()}';
+    final date = '${dateTime.hour.asTwoDigitString()}:${dateTime.minute.asTwoDigitString()}';
 
     return date;
   }
