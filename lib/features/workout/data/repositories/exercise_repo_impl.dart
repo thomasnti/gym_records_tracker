@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import '../../domain/entities/exercise_info.dart';
 import '../../domain/repositories/exercise_repo.dart';
 import '../exercises_data.dart';
 

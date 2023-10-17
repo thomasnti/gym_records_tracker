@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mediatr/mediatr.dart';
 
-import '../../data/exercises_data.dart';
+import '../entities/exercise_info.dart';
 import '../repositories/exercise_repo.dart';
 
 class GetAvailableExercisesByMuscleGroup extends IQuery<List<ExerciseInfo>> {

@@ -44,8 +44,7 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     gh.lazySingleton<_i3.DateTimeService>(() => _i4.DateTimeServiceImpl());
-    gh.factory<_i5.ExerciseCubit>(
-        () => _i5.ExerciseCubit(mediator: gh<_i6.Mediator>()));
+    gh.factory<_i5.ExerciseCubit>(() => _i5.ExerciseCubit(gh<_i6.Mediator>()));
     gh.lazySingleton<_i7.ExerciseRepo>(() => _i8.ExerciseRepoImpl());
     gh.factory<_i9.GetAvailableExercisesByMuscleGroupHandler>(() =>
         _i9.GetAvailableExercisesByMuscleGroupHandler(gh<_i7.ExerciseRepo>()));
