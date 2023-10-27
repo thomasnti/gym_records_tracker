@@ -1,26 +1,7 @@
 part of 'workout_bloc.dart';
 
-// abstract class WorkoutState extends Equatable {
-//   const WorkoutState();
-
-//   @override
-//   List<Object?> get props => [];
-// }
-
-// class WorkoutStart extends WorkoutState {}
-
-// class WorkoutFinished extends WorkoutState {}
-
-// class WorkoutExerciceAdd extends WorkoutState {}
-
-// class ExerciseSelected extends WorkoutState {
-//   final String selectedExercise;
-
-//   const ExerciseSelected(this.selectedExercise);
-// }
-
 class WorkoutState extends Equatable {
-  final bool workoutStart;
+  final bool workoutStarted;
   final bool workoutFinished;
   final bool showBodyParts;
   final List<Exercise> exercises;
@@ -29,7 +10,7 @@ class WorkoutState extends Equatable {
   final String exerciseToAddSetIn;
 
   const WorkoutState({
-    required this.workoutStart,
+    required this.workoutStarted,
     required this.workoutFinished,
     required this.showBodyParts,
     this.exercises = const [],
@@ -39,7 +20,7 @@ class WorkoutState extends Equatable {
   });
 
   WorkoutState copyWith({
-    bool? workoutStart,
+    bool? workoutStarted,
     bool? workoutFinished,
     bool? showBodyParts,
     String? selectedExercise,
@@ -49,7 +30,7 @@ class WorkoutState extends Equatable {
     String? exerciseToAddSetIn,
   }) =>
       WorkoutState(
-        workoutStart: workoutStart ?? this.workoutStart,
+        workoutStarted: workoutStarted ?? this.workoutStarted,
         workoutFinished: workoutFinished ?? this.workoutFinished,
         showBodyParts: showBodyParts ?? this.showBodyParts,
         exercises: exercises ?? this.exercises,
@@ -60,7 +41,7 @@ class WorkoutState extends Equatable {
 
   @override
   List<Object?> get props => [
-        workoutStart,
+        workoutStarted,
         workoutFinished,
         showBodyParts,
         exercises,

@@ -15,7 +15,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   WorkoutBloc()
       : super(
           const WorkoutState(
-            workoutStart: false,
+            workoutStarted: false,
             workoutFinished: false,
             showBodyParts: false,
           ),
@@ -44,7 +44,8 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) {
     final exercises = [
       ...state.exercises,
-      Exercise(exerciseName: event.selectedExercise, exerciseSets: const [ExerciseSet(setNumber: 1)])
+      Exercise(
+          exerciseName: event.selectedExercise, exerciseSets: const [ExerciseSet(setNumber: 1)])
     ];
 
     emit(
@@ -63,7 +64,8 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) {
     // In Dart, when you assign an object from one variable to another, you're actually creating a reference to the same object in memory. So, if state.exercises[currentExerciseIndex] is a reference to the same object as currentExercise, any changes you make to currentExercise will also affect state.exercises[currentExerciseIndex] because they both point to the same object in memory.
 
-    final currentExerciseIndex = state.exercises.indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
+    final currentExerciseIndex =
+        state.exercises.indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
 
     final currentExercise = state.exercises[currentExerciseIndex];
     final currentExerciseSetNum = currentExercise.exerciseSets.length;

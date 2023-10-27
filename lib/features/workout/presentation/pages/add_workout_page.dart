@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +10,8 @@ import '../widgets/exercise_set_widget.dart';
 import '../widgets/workout_date.dart';
 import '../widgets/workout_duration.dart';
 import 'body_parts_page.dart';
+
+//? Η καλύτερη λύση ειναι να εχω ενα bloc για ολο το workout (WorkoutBloc) και αλλο ενα για την κάθε άσκηση ξεχωριστά (ExerciseBloc ΄ή Cubit). Αυτό για να γίνει καλό θα είναι όταν ξεκιναω την άσκηση να γράφεται στη βαση μια νέα εγγραφή και κάθε φορά που αλλάζω κάτι να πάει και να κάνει update και να γυρνάει τα νέα data. Ουσιαστικά το delete workout θα διαγράφει ολόκληρη γραμμη απο την βαση και το delete set ή delete exercise θα κάνει update . Λογικά ολα τα exercise θα μπαινουν σε ενα array of objects και καπως θα κάνω manipulate αυτο.
 
 class AddWorkoutPage extends StatelessWidget {
   const AddWorkoutPage({super.key});
@@ -31,14 +30,14 @@ class AddWorkoutPage extends StatelessWidget {
             body: BlocBuilder<WorkoutBloc, WorkoutState>(
               builder: (context, state) {
                 if (state.showBodyParts) {
-                  return BodyPartsPage(
+                  return const BodyPartsPage(
                     isFromWorkout: true,
                   );
                 }
-                return NewWorkoutBody();
+                return const NewWorkoutBody();
               },
             ),
-            floatingActionButton: (!state.showBodyParts) ? WorkoutFab() : null,
+            floatingActionButton: (!state.showBodyParts) ? const WorkoutFab() : null,
           );
         },
       ),
@@ -179,15 +178,15 @@ class NewWorkoutBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            WorkoutDate(),
-            SizedBox(height: 10),
-            WorkoutDuration(),
-            SizedBox(height: 20),
+            const WorkoutDate(),
+            const SizedBox(height: 10),
+            const WorkoutDuration(),
+            const SizedBox(height: 20),
             // if (state.exercises.isNotEmpty)
             BlocBuilder<WorkoutBloc, WorkoutState>(
               builder: (context, state) {
                 return ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: state.exercises.length,
                   itemBuilder: (context, index) {
@@ -211,12 +210,12 @@ class NewWorkoutBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         ExerciseTitleAndOptions(exercise: exercise),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         BlocBuilder<ExerciseCubit, ExerciseState>(
           builder: (context, state) {
             return ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               // primary: false,
               itemCount: exercise.exerciseSets.length,
               itemBuilder: (context, index) {
@@ -279,7 +278,7 @@ class ExerciseTitleAndOptions extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.more_vert),
+          icon: const Icon(Icons.more_vert),
           onPressed: () {
             showModalBottomSheet(
               context: context,
@@ -290,21 +289,21 @@ class ExerciseTitleAndOptions extends StatelessWidget {
                     children: [
                       TextButton.icon(
                         onPressed: () {},
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.info_outline,
                           size: 30,
                         ),
-                        label: Text(
+                        label: const Text(
                           'Exercise Details',
                         ),
                       ),
                       TextButton.icon(
                         onPressed: () {},
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.delete,
                           size: 30,
                         ),
-                        label: Text(
+                        label: const Text(
                           'Delete',
                           style: TextStyle(
                             color: Colors.red,
