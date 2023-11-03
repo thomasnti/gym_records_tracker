@@ -4,7 +4,7 @@ typedef DatabaseRows = List<Map<String, dynamic>>;
 abstract class IDB {
   Future<String> getDbPath();
 
-  Future<void> createTable(String query);
+  Future<void> createTable(String tableName);
 
   Future<void> insert(
     String tableName,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
+import '../../../features/workout/domain/repositories/workout_repo.dart';
 import '../../../features/workout/presentation/pages/add_workout_page.dart';
 
 class AddWorkoutButton extends StatelessWidget {
@@ -9,11 +11,12 @@ class AddWorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddWorkoutPage(),
-            ));
+        GetIt.I<WorkoutRepo>().saveWorkout();
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const AddWorkoutPage(),
+        //     ));
       },
       tooltip: 'Add a workout',
       label: const Row(

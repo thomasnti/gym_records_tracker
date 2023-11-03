@@ -1,1 +1,3 @@
-abstract class WorkoutRepo {}
+abstract class WorkoutRepo {
+  Future<void> saveWorkout();
+}

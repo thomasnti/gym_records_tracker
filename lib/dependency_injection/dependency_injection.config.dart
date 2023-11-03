@@ -24,7 +24,9 @@ import '../common/infrastructure/services/date_time_service_impl.dart' as _i4;
 import '../common/infrastructure/services/log_service/debug_console_service.dart'
     as _i13;
 import '../features/workout/data/repositories/exercise_repo_impl.dart' as _i8;
+import '../features/workout/data/repositories/workout_repo_impl.dart' as _i19;
 import '../features/workout/domain/repositories/exercise_repo.dart' as _i7;
+import '../features/workout/domain/repositories/workout_repo.dart' as _i18;
 import '../features/workout/domain/usecases/get_available_exercises_by_muscle_group.dart'
     as _i9;
 import '../features/workout/presentation/bloc/exercise/cubit/exercise_cubit.dart'
@@ -59,6 +61,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i15.PerformanceBehaviour>(),
         ));
     gh.factory<_i17.WorkoutBloc>(() => _i17.WorkoutBloc());
+    gh.lazySingleton<_i18.WorkoutRepo>(
+        () => _i19.WorkoutRepoImpl(gh<_i10.IDB>()));
     return this;
   }
 }
