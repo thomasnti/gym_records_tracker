@@ -1,10 +1,12 @@
+import '../../../domain/device/database/table_field.dart';
+
 typedef DatabaseRows = List<Map<String, dynamic>>;
 
 /// An interface for our database
 abstract class IDB {
   Future<String> getDbPath();
 
-  Future<void> createTable(String tableName);
+  Future<void> createTable(String tableName, List<TableField> fields);
 
   Future<void> insert(
     String tableName,

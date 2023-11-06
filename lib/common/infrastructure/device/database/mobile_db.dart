@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../domain/device/database/table_field.dart';
 import 'i_db.dart';
 
 @LazySingleton(as: IDB)
@@ -8,11 +9,13 @@ class MobileDb extends IDB {
   Database? _db;
 
   @override
-  Future<void> createTable(String tableName) async {
+  Future<void> createTable(String tableName, List<TableField> fields) async {
     // First we create the database
     await _initDB();
+    final fieldsPart =
+        fields.map((field) => '${field.name} ${_mapFieldType(field.type)}').join(',');
+    final query = 'CREATE TABLE IF NOT EXISTS $tableName ($fieldsPart)';
     // Then we create a table
-    final query = 'CREATE TABLE IF NOT EXISTS $tableName (NAME VARCHAR(50) PRIMARY KEY)';
     await _db?.execute(query);
   }
 
