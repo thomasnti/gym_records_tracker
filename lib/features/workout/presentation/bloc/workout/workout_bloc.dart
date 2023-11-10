@@ -3,16 +3,21 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mediatr/mediatr.dart';
 
 import '../../../domain/entities/exercise.dart';
 import '../../../domain/entities/exercise_set.dart';
+import '../../../domain/usecases/add_exercise_command.dart';
+import '../../../domain/usecases/begin_workout_command.dart';
 
 part 'workout_event.dart';
 part 'workout_state.dart';
 
 @injectable
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
-  WorkoutBloc()
+  final Mediator _mediator;
+
+  WorkoutBloc(this._mediator)
       : super(
           const WorkoutState(
             workoutStarted: false,
@@ -27,6 +32,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<SelectBodyPartEvent>(_onSelectBodyPart);
     on<AddExerciseToWorkoutEvent>(_onAddExerciseToWorkoutEvent);
     on<AddSetToExerciseEvent>(_onAddSetToExercise);
+    on<BeginNewWorkoutEvent>(_onBeginNewWorkoutEvent);
   }
 
   FutureOr<void> _onSelectBodyPart(
@@ -41,7 +47,11 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   FutureOr<void> _onAddExerciseToWorkoutEvent(
     AddExerciseToWorkoutEvent event,
     Emitter<WorkoutState> emit,
-  ) {
+  ) async {
+    await _mediator.send<void, AddExerciseCommand>(AddExerciseCommand(
+      exerciseName: event.selectedExercise,
+      workoutKey: state.workoutKey!,
+    ));
     final exercises = [
       ...state.exercises,
       Exercise(
@@ -82,5 +92,16 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     emit(state.copyWith(
       exerciseSets: updatedExercise.exerciseSets,
     ));
+  }
+
+  Future<FutureOr<void>> _onBeginNewWorkoutEvent(
+    BeginNewWorkoutEvent event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    final newWorkoutKey = await _mediator.send<int, BeginWorkoutCommand>(BeginWorkoutCommand());
+
+    emit(
+      state.copyWith(workoutKey: newWorkoutKey),
+    );
   }
 }

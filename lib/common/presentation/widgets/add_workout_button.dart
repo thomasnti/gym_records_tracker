@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../features/workout/presentation/bloc/workout/workout_bloc.dart';
 import '../../../features/workout/presentation/pages/add_workout_page.dart';
 
 class AddWorkoutButton extends StatelessWidget {
@@ -9,12 +11,19 @@ class AddWorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: () {
-        // GetIt.I<WorkoutRepo>().saveWorkout();
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddWorkoutPage(),
-            ));
+        final navigator = Navigator.of(context);
+
+        context.read<WorkoutBloc>().add(BeginNewWorkoutEvent());
+        navigator.push(
+          MaterialPageRoute(
+            builder: (_) => const AddWorkoutPage(),
+          ),
+        );
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const AddWorkoutPage(),
+        //     ));
       },
       tooltip: 'Add a workout',
       label: const Row(

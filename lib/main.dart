@@ -47,7 +47,7 @@ class GymRecords extends StatelessWidget {
           create: (context) => MainPageCubit(),
         ),
         BlocProvider<WorkoutBloc>(
-          create: (context) => WorkoutBloc(),
+          create: (context) => getIt<WorkoutBloc>(),
         ),
       ],
       child: BlocBuilder<MainPageCubit, MainPageState>(

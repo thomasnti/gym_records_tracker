@@ -12,11 +12,21 @@ class MobileDb extends IDB {
   Future<void> createTable(String tableName, List<TableField> fields) async {
     // First we create the database
     await _initDB();
-    final fieldsPart =
-        fields.map((field) => '${field.name} ${_mapFieldType(field.type)}').join(',');
+    final fieldsPart = fields
+        .map((field) =>
+            '${field.name} ${_mapFieldType(field.type)} ${_checkForPrimaryKey(field)} ${_checkForAutoIncrement(field)}')
+        .join(',');
     final query = 'CREATE TABLE IF NOT EXISTS $tableName ($fieldsPart)';
     // Then we create a table
     await _db?.execute(query);
+  }
+
+  @override
+  Future<int> insert(String tableName, List<TableField> fields, Map<String, Object?> data) async {
+    await createTable(tableName, fields);
+    final newRecordKey = await _db!.insert(tableName, data);
+
+    return newRecordKey;
   }
 
   @override
@@ -30,18 +40,14 @@ class MobileDb extends IDB {
   }
 
   @override
-  Future<void> insert(String tableName, Map<String, String?> data) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<DatabaseRows> select(String tableName, int idFilter) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<int> update(String tableName, Map<String, String?> data) {
-    throw UnimplementedError();
+  Future<List<Map<String, Object?>>?> select(String tableName, int idFilter) async {
+    await _initDB();
+    final result = await _db?.query(tableName, where: 'id = ?', whereArgs: [idFilter]);
+    print(result);
+    if (result != null && result.isNotEmpty) {
+      return result;
+    }
+    return null;
   }
 
   Future<void> _initDB() async {
@@ -70,5 +76,33 @@ class MobileDb extends IDB {
       default:
         return 'TEXT';
     }
+  }
+
+  String _checkForPrimaryKey(TableField fld) {
+    if (fld.isPrimaryKey) {
+      return 'PRIMARY KEY';
+    }
+
+    return '';
+  }
+
+  String _checkForAutoIncrement(TableField fld) {
+    if (fld.isAutoIncrement) {
+      return 'AUTOINCREMENT';
+    }
+
+    return '';
+  }
+
+  @override
+  Future<int> update(String tableName, Map<String, dynamic> data, int idFilter) async {
+    final rowsAffected = await _db?.update(
+      tableName,
+      data,
+      where: 'id = ?',
+      whereArgs: [idFilter],
+    );
+
+    return rowsAffected ?? 0;
   }
 }

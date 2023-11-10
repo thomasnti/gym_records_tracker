@@ -27,6 +27,10 @@ import '../features/workout/data/repositories/exercise_repo_impl.dart' as _i8;
 import '../features/workout/data/repositories/workout_repo_impl.dart' as _i19;
 import '../features/workout/domain/repositories/exercise_repo.dart' as _i7;
 import '../features/workout/domain/repositories/workout_repo.dart' as _i18;
+import '../features/workout/domain/usecases/add_exercise_command.dart' as _i20;
+import '../features/workout/domain/usecases/begin_workout_command.dart' as _i21;
+import '../features/workout/domain/usecases/finish_workout_command.dart'
+    as _i22;
 import '../features/workout/domain/usecases/get_available_exercises_by_muscle_group.dart'
     as _i9;
 import '../features/workout/presentation/bloc/exercise/cubit/exercise_cubit.dart'
@@ -48,7 +52,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i3.DateTimeService>(() => _i4.DateTimeServiceImpl());
     gh.factory<_i5.ExerciseCubit>(() => _i5.ExerciseCubit(gh<_i6.Mediator>()));
     gh.lazySingleton<_i7.ExerciseRepo>(() => _i8.ExerciseRepoImpl());
-    gh.factory<_i9.GetAvailableExercisesByMuscleGroupHandler>(() =>
+    gh.lazySingleton<_i9.GetAvailableExercisesByMuscleGroupHandler>(() =>
         _i9.GetAvailableExercisesByMuscleGroupHandler(gh<_i7.ExerciseRepo>()));
     gh.lazySingleton<_i10.IDB>(() => _i11.MobileDb());
     gh.lazySingleton<_i12.LogService>(() => _i13.DebugConsoleService());
@@ -60,9 +64,18 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i14.LoggingBehaviour>(),
           gh<_i15.PerformanceBehaviour>(),
         ));
-    gh.factory<_i17.WorkoutBloc>(() => _i17.WorkoutBloc());
+    gh.factory<_i17.WorkoutBloc>(() => _i17.WorkoutBloc(gh<_i6.Mediator>()));
     gh.lazySingleton<_i18.WorkoutRepo>(
         () => _i19.WorkoutRepoImpl(gh<_i10.IDB>()));
+    gh.lazySingleton<_i20.AddExerciseCommandHandler>(
+        () => _i20.AddExerciseCommandHandler(gh<_i18.WorkoutRepo>()));
+    gh.lazySingleton<_i21.BeginWorkoutCommandHandler>(
+        () => _i21.BeginWorkoutCommandHandler(
+              gh<_i18.WorkoutRepo>(),
+              gh<_i3.DateTimeService>(),
+            ));
+    gh.lazySingleton<_i22.FinishWorkoutCommandHandler>(
+        () => _i22.FinishWorkoutCommandHandler(gh<_i18.WorkoutRepo>()));
     return this;
   }
 }

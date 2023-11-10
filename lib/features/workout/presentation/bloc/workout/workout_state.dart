@@ -8,6 +8,7 @@ class WorkoutState extends Equatable {
   final List<ExerciseSet> exerciseSets;
   final int exerciseSetNumber;
   final String exerciseToAddSetIn;
+  final int? workoutKey;
 
   const WorkoutState({
     required this.workoutStarted,
@@ -17,6 +18,7 @@ class WorkoutState extends Equatable {
     this.exerciseSets = const [],
     this.exerciseSetNumber = 0,
     this.exerciseToAddSetIn = '',
+    this.workoutKey,
   });
 
   WorkoutState copyWith({
@@ -28,6 +30,7 @@ class WorkoutState extends Equatable {
     List<ExerciseSet>? exerciseSets,
     int? exerciseSetNumber,
     String? exerciseToAddSetIn,
+    int? workoutKey,
   }) =>
       WorkoutState(
         workoutStarted: workoutStarted ?? this.workoutStarted,
@@ -37,6 +40,7 @@ class WorkoutState extends Equatable {
         exerciseSets: exerciseSets ?? this.exerciseSets,
         exerciseSetNumber: exerciseSetNumber ?? this.exerciseSetNumber,
         exerciseToAddSetIn: exerciseToAddSetIn ?? this.exerciseToAddSetIn,
+        workoutKey: workoutKey ?? this.workoutKey,
       );
 
   @override
@@ -48,5 +52,6 @@ class WorkoutState extends Equatable {
         exerciseSets,
         exerciseSetNumber,
         exerciseToAddSetIn,
+        workoutKey,
       ];
 }

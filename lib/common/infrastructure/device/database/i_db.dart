@@ -1,21 +1,21 @@
 import '../../../domain/device/database/table_field.dart';
 
-typedef DatabaseRows = List<Map<String, dynamic>>;
-
 /// An interface for our database
 abstract class IDB {
   Future<String> getDbPath();
 
   Future<void> createTable(String tableName, List<TableField> fields);
 
-  Future<void> insert(
+  Future<int> insert(
     String tableName,
-    Map<String, String?> data,
+    List<TableField> fields,
+    Map<String, Object?> data,
   );
 
   Future<int> update(
     String tableName,
-    Map<String, String?> data,
+    Map<String, dynamic> data,
+    int idFilter,
   );
 
   Future<void> delete(
@@ -23,7 +23,11 @@ abstract class IDB {
     int id,
   );
 
-  Future<DatabaseRows> select(
+  // Future<DatabaseRows> select(
+  //   String tableName,
+  //   int idFilter,
+  // );
+  Future<List<Map<String, Object?>>?> select(
     String tableName,
     int idFilter,
   );

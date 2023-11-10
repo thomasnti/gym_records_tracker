@@ -10,7 +10,7 @@ class GetAvailableExercisesByMuscleGroup extends IQuery<List<ExerciseInfo>> {
   GetAvailableExercisesByMuscleGroup(this.bodyPart);
 }
 
-@injectable
+@lazySingleton
 class GetAvailableExercisesByMuscleGroupHandler
     extends IRequestHandler<List<ExerciseInfo>, GetAvailableExercisesByMuscleGroup> {
   final ExerciseRepo _exerciseRepo;

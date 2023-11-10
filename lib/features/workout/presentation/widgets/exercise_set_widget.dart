@@ -21,7 +21,8 @@ class ExerciseSetWidget extends StatelessWidget {
               width: 30,
               height: 20,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
               child: Center(
                 child: Text(
                   exerciseSet.setNumber.toString(),

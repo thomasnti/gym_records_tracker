@@ -12,6 +12,8 @@ class WorkoutDate extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
+            // enabled: false,
+            readOnly: true,
             controller: TextEditingController(
                 text: getIt<DateTimeService>().formatToFullDateWithDayName(DateTime.now())),
             decoration: const InputDecoration(
