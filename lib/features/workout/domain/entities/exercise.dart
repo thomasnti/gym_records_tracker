@@ -45,7 +45,8 @@ class Exercise extends Equatable {
     return Exercise(
       exerciseName: map['exerciseName'] as String,
       exerciseSets: List<ExerciseSet>.from(
-        (map['exerciseSets'] as List<int>).map<ExerciseSet>(
+        //* It was List<int>
+        (map['exerciseSets'] as List<dynamic>).map<ExerciseSet>(
           (x) => ExerciseSet.fromMap(x as Map<String, dynamic>),
         ),
       ),

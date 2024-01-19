@@ -7,6 +7,7 @@ import 'package:mediatr/mediatr.dart';
 
 import '../../../domain/entities/exercise.dart';
 import '../../../domain/entities/exercise_set.dart';
+import '../../../domain/entities/workout.dart';
 import '../../../domain/usecases/add_exercise_command.dart';
 import '../../../domain/usecases/begin_workout_command.dart';
 
@@ -48,22 +49,31 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     AddExerciseToWorkoutEvent event,
     Emitter<WorkoutState> emit,
   ) async {
-    await _mediator.send<void, AddExerciseCommand>(AddExerciseCommand(
+    final currentWorkout = await _mediator.send<Workout, AddExerciseCommand>(AddExerciseCommand(
       exerciseName: event.selectedExercise,
       workoutKey: state.workoutKey!,
+      existingWorkoutExercises: state.exercises,
     ));
-    final exercises = [
-      ...state.exercises,
-      Exercise(
-          exerciseName: event.selectedExercise, exerciseSets: const [ExerciseSet(setNumber: 1)])
-    ];
+
+    // final exercises = [
+    //   ...state.exercises,
+    //   Exercise(
+    //       exerciseName: event.selectedExercise, exerciseSets: const [ExerciseSet(setNumber: 1)])
+    // ];
+
+    // emit(
+    //   state.copyWith(
+    //     showBodyParts: false,
+    //     exercises: exercises,
+    //     // exerciseSetNumber: 1,
+    //     // exerciseSets: [ExerciseSet(setNumber: 1)],
+    //   ),
+    // );
 
     emit(
       state.copyWith(
         showBodyParts: false,
-        exercises: exercises,
-        // exerciseSetNumber: 1,
-        // exerciseSets: [ExerciseSet(setNumber: 1)],
+        exercises: currentWorkout.exercises,
       ),
     );
   }

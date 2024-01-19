@@ -9,10 +9,12 @@ import '../repositories/workout_repo.dart';
 class AddExerciseCommand extends ICommand<Workout> {
   final String exerciseName;
   final int workoutKey;
+  final List<Exercise> existingWorkoutExercises;
 
   AddExerciseCommand({
     required this.exerciseName,
     required this.workoutKey,
+    required this.existingWorkoutExercises,
   });
 }
 
@@ -25,10 +27,17 @@ class AddExerciseCommandHandler extends IRequestHandler<Workout, AddExerciseComm
   Future<Workout> call(AddExerciseCommand request) async {
     // we set setNumber to 1 because the user adds a new exercise so we need to add one set.
     final exerciseToAdd = Exercise(
-        exerciseName: request.exerciseName, exerciseSets: const [ExerciseSet(setNumber: 1)]);
+      exerciseName: request.exerciseName,
+      exerciseSets: const [ExerciseSet(setNumber: 1)],
+    );
 
-    await _workoutRepo.updateWorkout(exerciseToAdd, request.workoutKey);
-    final currentWorkout = await _workoutRepo.getCurrentWorkout(request.workoutKey);
-    return Workout(workoutDate: DateTime.now().toString(), startTime: 'startTime');
+    await _workoutRepo.updateWorkout(
+      workoutId: request.workoutKey,
+      exerciseToAdd: exerciseToAdd,
+      existingWorkoutExercises: request.existingWorkoutExercises,
+    );
+    // final currentWorkout = await _workoutRepo.getCurrentWorkout(request.workoutKey);
+    // return Workout(workoutDate: DateTime.now().toString(), startTime: 'startTime');
+    return _workoutRepo.getCurrentWorkout(request.workoutKey);
   }
 }

@@ -7,4 +7,7 @@ abstract class DateTimeService {
 
   /// Returns a string in the form of Thu, 10 Aug 2023
   String formatToFullDateWithDayName(DateTime dateTime);
+
+  /// Parse date to '2022-05-16 22:09'
+  String parseToyyMMddHHm(DateTime date);
 }

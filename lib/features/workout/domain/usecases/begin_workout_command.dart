@@ -16,7 +16,7 @@ class BeginWorkoutCommandHandler extends IRequestHandler<int, BeginWorkoutComman
   @override
   Future<int> call(BeginWorkoutCommand request) async {
     final newWorkout = Workout(
-      workoutDate: DateTime.now().toString(), // todo Do it with _dateTimeService
+      workoutDate: _dateTimeService.parseToyyMMddHHm(DateTime.now()),
       startTime: _dateTimeService.getHourMinuteFromDt(DateTime.now()),
     );
 

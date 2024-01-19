@@ -27,4 +27,11 @@ class DateTimeServiceImpl extends DateTimeService {
 
     return formattedDate;
   }
+
+  @override
+  String parseToyyMMddHHm(DateTime date) {
+    final formatter = DateFormat('y-MM-dd HH:mm');
+
+    return formatter.format(date);
+  }
 }

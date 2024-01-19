@@ -8,17 +8,17 @@ part of 'workout_model.dart';
 
 WorkoutModel _$WorkoutModelFromJson(Map<String, dynamic> json) => WorkoutModel(
       id: json['id'] as int,
-      WORKOUT_DATE: json['WORKOUT_DATE'] as String,
-      START_TIME: json['START_TIME'] as String,
-      END_TIME: json['END_TIME'] as String,
-      EXERCISES: json['EXERCISES'] as String,
+      workoutDate: json['WORKOUT_DATE'] as String,
+      startTime: json['START_TIME'] as String,
+      endTime: json['END_TIME'] as String? ?? '',
+      exercises: json['EXERCISES'] as String,
     );
 
 Map<String, dynamic> _$WorkoutModelToJson(WorkoutModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'WORKOUT_DATE': instance.WORKOUT_DATE,
-      'START_TIME': instance.START_TIME,
-      'END_TIME': instance.END_TIME,
-      'EXERCISES': instance.EXERCISES,
+      'WORKOUT_DATE': instance.workoutDate,
+      'START_TIME': instance.startTime,
+      'END_TIME': instance.endTime,
+      'EXERCISES': instance.exercises,
     };

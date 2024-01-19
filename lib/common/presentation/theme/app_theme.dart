@@ -16,6 +16,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: Colors.green,
     ),
+    useMaterial3: false,
     // Add other color definitions, typography, and configurations for your light theme
   );
 

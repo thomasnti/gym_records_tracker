@@ -5,6 +5,7 @@ import '../../../../common/infrastructure/device/database/i_db.dart';
 import '../../domain/entities/exercise.dart';
 import '../../domain/entities/workout.dart';
 import '../../domain/repositories/workout_repo.dart';
+import '../models/exercise_mapper.dart' as exercise_mapper;
 import '../models/workout_model.dart';
 
 @LazySingleton(as: WorkoutRepo)
@@ -61,7 +62,7 @@ class WorkoutRepoImpl extends WorkoutRepo {
   }
 
   @override
-  Future<WorkoutModel> getCurrentWorkout(int id) async {
+  Future<Workout> getCurrentWorkout(int id) async {
     final savedWorkout = await _db.select(_tableName, id);
     if (savedWorkout == null || savedWorkout.length > 1) {
       //* Log Something
@@ -71,13 +72,35 @@ class WorkoutRepoImpl extends WorkoutRepo {
       return WorkoutModel.fromJson(e);
     }).toList();
 
-    return workouts[0];
+    final workoutModel = workouts[0];
+
+    return Workout(
+      workoutDate: workoutModel.workoutDate,
+      startTime: workoutModel.startTime,
+      endTime: workoutModel.endTime,
+      exercises: exercise_mapper.mapExercises(workoutModel.exercises),
+    );
   }
 
   @override
-  Future<void> updateWorkout(Exercise exercise, int id) async {
-    // The Set clause allows you to specify the columns and their new values that you want to update while leaving the rest of the row unchanged.
-    final setClause = {'EXERCISES': exercise.toJson()};
-    await _db.update(_tableName, setClause, id);
+  Future<void> updateWorkout({
+    required int workoutId,
+    required Exercise exerciseToAdd,
+    required List<Exercise> existingWorkoutExercises,
+  }) async {
+    Map<String, String> setClause;
+    final exercisesBuffer = StringBuffer(); // the data to update
+
+    for (final exercise in existingWorkoutExercises) {
+      exercisesBuffer.write('${exercise.toJson()},');
+    }
+
+    // append the new exercise
+    exercisesBuffer.write(exerciseToAdd.toJson());
+
+    // Αν δεν ειναι κενο θα πρεπει να φτιαχνω ενα string . Θα looparw τα existingWorkoutExercises και θα εκτελώ exercise.toJson(), το αποτελεσμα θα το κανω append σε ενα string . Στο τελος θα προσθετω το existing
+    setClause = {'EXERCISES': '[$exercisesBuffer]'};
+
+    await _db.update(_tableName, setClause, workoutId);
   }
 }

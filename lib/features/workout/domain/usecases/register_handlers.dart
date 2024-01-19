@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mediatr/mediatr.dart';
 
 import '../entities/exercise_info.dart';
+import '../entities/workout.dart';
 import 'add_exercise_command.dart';
 import 'begin_workout_command.dart';
 import 'finish_workout_command.dart';
@@ -18,6 +19,6 @@ void registerWorkoutHandlers() {
   GetIt.I<Mediator>().registerHandler<void, FinishWorkoutCommand, FinishWorkoutCommandHandler>(
       () => GetIt.I<FinishWorkoutCommandHandler>());
 
-  GetIt.I<Mediator>().registerHandler<void, AddExerciseCommand, AddExerciseCommandHandler>(
+  GetIt.I<Mediator>().registerHandler<Workout, AddExerciseCommand, AddExerciseCommandHandler>(
       () => GetIt.I<AddExerciseCommandHandler>());
 }
