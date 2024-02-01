@@ -2,23 +2,24 @@ import 'exercise.dart';
 
 /// Represents a workout consisting of a list of exercises, workout date, start time, and end time.
 class Workout {
+  /// The date of the workout.
+  final String workoutDate;
+
+  /// The start time of the workout.
+  final String startTime;
+
+  /// The end time of the workout.
+  String?
+      endTime; // not final in order to be set // todo: Search how to set a property of an object in Dart without creating a new instance
+
   /// The list of exercises performed in the workout.
   final List<Exercise> exercises;
 
-  /// The date of the workout.
-  final DateTime workoutDate;
-
-  /// The start time of the workout.
-  final DateTime startTime;
-
-  /// The end time of the workout.
-  final DateTime endTime;
-
   /// Creates a new instance of the [Workout] class.
-  Workout(
-    this.exercises,
-    this.workoutDate,
-    this.startTime,
+  Workout({
+    required this.workoutDate,
+    required this.startTime,
     this.endTime,
-  );
+    this.exercises = const [],
+  });
 }

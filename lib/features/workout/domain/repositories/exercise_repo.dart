@@ -1,4 +1,4 @@
-import '../../data/exercises_data.dart';
+import '../entities/exercise_info.dart';
 
 abstract class ExerciseRepo {
   Future<List<ExerciseInfo>> getAvailableExercises();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/add_workout_button.dart';
+import '../../../../common/presentation/widgets/add_workout_button.dart';
 
 class WorkoutLogPage extends StatelessWidget {
   const WorkoutLogPage({super.key});

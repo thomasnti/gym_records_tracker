@@ -16,6 +16,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: Colors.green,
     ),
+    useMaterial3: false,
     // Add other color definitions, typography, and configurations for your light theme
   );
 
@@ -28,8 +29,7 @@ class AppTheme {
       foregroundColor: Colors.white,
     ),
     textTheme: const TextTheme(
-      titleLarge: TextStyle(
-          fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+      titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
       bodyMedium: TextStyle(fontSize: 16, color: Colors.white),
     ),
     colorScheme: ColorScheme.fromSwatch().copyWith(

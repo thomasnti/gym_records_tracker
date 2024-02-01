@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/exercises_data.dart';
+import '../../domain/entities/exercise_info.dart';
 import '../bloc/workout/workout_bloc.dart';
 
 class ExercisesPage extends StatelessWidget {
@@ -31,10 +31,11 @@ class ExercisesPage extends StatelessWidget {
       return const Padding(
         padding: EdgeInsets.all(8.0),
         child: Center(
-            child: Text(
-          'There are no available exercises for this muscle group!',
-          textAlign: TextAlign.center,
-        )),
+          child: Text(
+            'There are no available exercises for this muscle group!',
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
     }
     return ListView.builder(
@@ -50,9 +51,7 @@ class ExercisesPage extends StatelessWidget {
             onTap: isFromWorkout
                 ? () {
                     Navigator.of(context).pop();
-                    context
-                        .read<WorkoutBloc>()
-                        .add(AddExerciseToWorkoutEvent(exercise.name));
+                    context.read<WorkoutBloc>().add(AddExerciseToWorkoutEvent(exercise.name));
                     // Navigator.of(context).pop();
                   }
                 : null,

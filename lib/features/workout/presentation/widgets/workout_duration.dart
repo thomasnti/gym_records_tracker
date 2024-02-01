@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/domain/date_time_service.dart';
+import '../../../../common/domain/services/date_time_service.dart';
 import '../../../../dependency_injection/dependency_injection.dart';
 
 class WorkoutDuration extends StatelessWidget {
@@ -14,8 +14,7 @@ class WorkoutDuration extends StatelessWidget {
         Expanded(
           child: TextField(
             controller: TextEditingController(
-              text:
-                  getIt<DateTimeService>().getHourMinuteFromDt(DateTime.now()),
+              text: getIt<DateTimeService>().getHourMinuteFromDt(DateTime.now()),
             ),
             decoration: const InputDecoration(
               labelText: 'Start Time',

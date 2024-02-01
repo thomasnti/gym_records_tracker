@@ -1,11 +1,5 @@
 import '../domain/entities/body_parts.dart';
-
-class ExerciseInfo {
-  final String name;
-  final BodyParts bodyPart;
-
-  ExerciseInfo(this.name, this.bodyPart);
-}
+import '../domain/entities/exercise_info.dart';
 
 List<ExerciseInfo> exercisesData = [
   ExerciseInfo('Bench Press', BodyParts.chest),

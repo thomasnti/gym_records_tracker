@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 import 'exercise_set.dart';
@@ -31,4 +33,28 @@ class Exercise extends Equatable {
         exerciseName,
         exerciseSets,
       ];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'exerciseName': exerciseName,
+      'exerciseSets': exerciseSets.map((x) => x.toMap()).toList(),
+    };
+  }
+
+  factory Exercise.fromMap(Map<String, dynamic> map) {
+    return Exercise(
+      exerciseName: map['exerciseName'] as String,
+      exerciseSets: List<ExerciseSet>.from(
+        //* It was List<int>
+        (map['exerciseSets'] as List<dynamic>).map<ExerciseSet>(
+          (x) => ExerciseSet.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Exercise.fromJson(String source) =>
+      Exercise.fromMap(json.decode(source) as Map<String, dynamic>);
 }

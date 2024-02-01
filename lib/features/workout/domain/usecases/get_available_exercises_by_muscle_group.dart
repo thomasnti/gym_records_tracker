@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mediatr/mediatr.dart';
 
-import '../../data/exercises_data.dart';
+import '../entities/exercise_info.dart';
 import '../repositories/exercise_repo.dart';
 
 class GetAvailableExercisesByMuscleGroup extends IQuery<List<ExerciseInfo>> {
@@ -10,15 +10,14 @@ class GetAvailableExercisesByMuscleGroup extends IQuery<List<ExerciseInfo>> {
   GetAvailableExercisesByMuscleGroup(this.bodyPart);
 }
 
-@injectable
-class GetAvailableExercisesByMuscleGroupHandler extends IRequestHandler<
-    List<ExerciseInfo>, GetAvailableExercisesByMuscleGroup> {
+@lazySingleton
+class GetAvailableExercisesByMuscleGroupHandler
+    extends IRequestHandler<List<ExerciseInfo>, GetAvailableExercisesByMuscleGroup> {
   final ExerciseRepo _exerciseRepo;
 
   GetAvailableExercisesByMuscleGroupHandler(this._exerciseRepo);
   @override
-  Future<List<ExerciseInfo>> call(
-      GetAvailableExercisesByMuscleGroup request) async {
+  Future<List<ExerciseInfo>> call(GetAvailableExercisesByMuscleGroup request) async {
     final availableExercises = await _exerciseRepo.getAvailableExercises();
     final List<ExerciseInfo> exercisesForSpecificMuscle = [];
 

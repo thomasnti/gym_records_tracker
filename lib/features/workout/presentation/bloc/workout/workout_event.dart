@@ -7,6 +7,8 @@ abstract class WorkoutEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class BeginNewWorkoutEvent extends WorkoutEvent {}
+
 class SelectBodyPartEvent extends WorkoutEvent {}
 
 class AddExerciseToWorkoutEvent extends WorkoutEvent {
@@ -20,3 +22,5 @@ class AddSetToExerciseEvent extends WorkoutEvent {
 
   const AddSetToExerciseEvent(this.exerciseName);
 }
+
+class FinishWorkoutEvent extends WorkoutEvent {}
