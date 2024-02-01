@@ -9,34 +9,49 @@ class AddWorkoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final workoutBloc = context.watch<WorkoutBloc>();
+    final workoutState = workoutBloc.state;
+
     return FloatingActionButton.extended(
       onPressed: () {
         final navigator = Navigator.of(context);
 
-        context.read<WorkoutBloc>().add(BeginNewWorkoutEvent());
+        workoutBloc.add(BeginNewWorkoutEvent());
         navigator.push(
           MaterialPageRoute(
             builder: (_) => const AddWorkoutPage(),
           ),
         );
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const AddWorkoutPage(),
-        //     ));
       },
       tooltip: 'Add a workout',
-      label: const Row(
-        children: [
-          Icon(Icons.add),
-          Text(
-            'Begin workout',
-            style: TextStyle(
-              fontSize: 18,
-            ),
+      label: _WorkoutButtonLabel(workoutState: workoutState),
+    );
+  }
+}
+
+class _WorkoutButtonLabel extends StatelessWidget {
+  final WorkoutState workoutState;
+
+  const _WorkoutButtonLabel({
+    required this.workoutState,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Icon labelIcon = workoutState.workoutFinished
+        ? const Icon(Icons.add)
+        : const Icon(Icons.keyboard_arrow_up_rounded);
+
+    return Row(
+      children: [
+        labelIcon,
+        Text(
+          workoutState.workoutFinished ? 'Begin workout' : 'Resume workout',
+          style: const TextStyle(
+            fontSize: 18,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -11,9 +11,9 @@ class WorkoutState extends Equatable {
   final int? workoutKey;
 
   const WorkoutState({
-    required this.workoutStarted,
-    required this.workoutFinished,
-    required this.showBodyParts,
+    this.workoutStarted = false, // Δε το έχω χρησιμοποιήσει μ΄έχρι στιγμής
+    this.workoutFinished = true, // The initial value is true in order to set AddWorkoutButton right
+    this.showBodyParts = false,
     this.exercises = const [],
     this.exerciseSets = const [],
     this.exerciseSetNumber = 0,
