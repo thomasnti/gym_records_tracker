@@ -2,11 +2,15 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../domain/device/database/table_field.dart';
+import '../../../domain/services/log_service.dart';
 import 'i_db.dart';
 
 @LazySingleton(as: IDB)
 class MobileDb extends IDB {
+  final LogService _logService;
   Database? _db;
+
+  MobileDb(this._logService);
 
   @override
   Future<void> createTable(String tableName, List<TableField> fields) async {
@@ -44,6 +48,7 @@ class MobileDb extends IDB {
     await _initDB();
     final result = await _db?.query(tableName, where: 'id = ?', whereArgs: [idFilter]);
     print(result);
+    _logService.log(result.toString(), eventName: 'SELECT_QUERY');
     if (result != null && result.isNotEmpty) {
       return result;
     }
