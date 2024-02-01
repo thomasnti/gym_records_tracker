@@ -10,6 +10,7 @@ import '../../../domain/entities/exercise_set.dart';
 import '../../../domain/entities/workout.dart';
 import '../../../domain/usecases/add_exercise_command.dart';
 import '../../../domain/usecases/begin_workout_command.dart';
+import '../../../domain/usecases/finish_workout_command.dart';
 
 part 'workout_event.dart';
 part 'workout_state.dart';
@@ -34,6 +35,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<AddExerciseToWorkoutEvent>(_onAddExerciseToWorkoutEvent);
     on<AddSetToExerciseEvent>(_onAddSetToExercise);
     on<BeginNewWorkoutEvent>(_onBeginNewWorkoutEvent);
+    on<FinishWorkoutEvent>(_onFinishWorkoutEvent);
   }
 
   FutureOr<void> _onSelectBodyPart(
@@ -112,6 +114,20 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
 
     emit(
       state.copyWith(workoutKey: newWorkoutKey),
+    );
+  }
+
+  FutureOr<void> _onFinishWorkoutEvent(
+    FinishWorkoutEvent event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    print('object');
+    if (state.workoutKey == null) {
+      return;
+    }
+
+    await _mediator.send<void, FinishWorkoutCommand>(
+      FinishWorkoutCommand(state.workoutKey!),
     );
   }
 }

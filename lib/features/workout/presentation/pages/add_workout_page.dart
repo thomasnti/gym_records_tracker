@@ -26,6 +26,29 @@ class AddWorkoutPage extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               title: Text(getIt<DateTimeService>().formatToMonthNameDay(DateTime.now())),
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              actions: [
+                TextButton(
+                  child: const Text(
+                    'Finish',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onPressed: () {
+                    context.read<WorkoutBloc>().add(
+                          FinishWorkoutEvent(),
+                        );
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
             ),
             body: BlocBuilder<WorkoutBloc, WorkoutState>(
               builder: (context, state) {

@@ -9,7 +9,8 @@ class Workout {
   final String startTime;
 
   /// The end time of the workout.
-  final String? endTime;
+  String?
+      endTime; // not final in order to be set // todo: Search how to set a property of an object in Dart without creating a new instance
 
   /// The list of exercises performed in the workout.
   final List<Exercise> exercises;

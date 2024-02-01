@@ -85,10 +85,11 @@ class WorkoutRepoImpl extends WorkoutRepo {
   @override
   Future<void> updateWorkout({
     required int workoutId,
-    required Exercise exerciseToAdd,
-    required List<Exercise> existingWorkoutExercises,
+    Exercise? exerciseToAdd,
+    List<Exercise> existingWorkoutExercises = const [],
+    Workout? workoutToUpdate,
   }) async {
-    Map<String, String> setClause;
+    Map<String, String> setClause = {};
     final exercisesBuffer = StringBuffer(); // the data to update
 
     for (final exercise in existingWorkoutExercises) {
@@ -96,11 +97,20 @@ class WorkoutRepoImpl extends WorkoutRepo {
     }
 
     // append the new exercise
-    exercisesBuffer.write(exerciseToAdd.toJson());
+    if (exerciseToAdd != null) {
+      exercisesBuffer.write(exerciseToAdd.toJson());
+      // Αν δεν ειναι κενο θα πρεπει να φτιαχνω ενα string . Θα looparw τα existingWorkoutExercises και θα εκτελώ exercise.toJson(), το αποτελεσμα θα το κανω append σε ενα string . Στο τελος θα προσθετω το existing
+      setClause = {'EXERCISES': '[$exercisesBuffer]'};
+    }
 
-    // Αν δεν ειναι κενο θα πρεπει να φτιαχνω ενα string . Θα looparw τα existingWorkoutExercises και θα εκτελώ exercise.toJson(), το αποτελεσμα θα το κανω append σε ενα string . Στο τελος θα προσθετω το existing
-    setClause = {'EXERCISES': '[$exercisesBuffer]'};
+    if (workoutToUpdate != null) {
+      setClause['END_TIME'] = workoutToUpdate.endTime!;
+    }
 
-    await _db.update(_tableName, setClause, workoutId);
+    await _db.update(
+      _tableName,
+      setClause,
+      workoutId,
+    );
   }
 }

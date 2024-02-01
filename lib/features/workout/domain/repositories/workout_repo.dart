@@ -8,8 +8,9 @@ abstract class WorkoutRepo {
 
   Future<void> updateWorkout({
     required int workoutId,
-    required Exercise exerciseToAdd,
-    required List<Exercise> existingWorkoutExercises,
+    Exercise? exerciseToAdd,
+    List<Exercise> existingWorkoutExercises = const [],
+    Workout? workoutToUpdate,
   });
 
 // It should return Workout not WorkoutModel, because model is related only with infrastructure
