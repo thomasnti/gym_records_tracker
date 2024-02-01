@@ -21,11 +21,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
 
   WorkoutBloc(this._mediator)
       : super(
-          const WorkoutState(
-            workoutStarted: false,
-            workoutFinished: false,
-            showBodyParts: false,
-          ),
+          const WorkoutState(),
         ) {
     _registerEvents();
   }
@@ -113,7 +109,10 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     final newWorkoutKey = await _mediator.send<int, BeginWorkoutCommand>(BeginWorkoutCommand());
 
     emit(
-      state.copyWith(workoutKey: newWorkoutKey),
+      state.copyWith(
+        workoutKey: newWorkoutKey,
+        workoutFinished: false,
+      ),
     );
   }
 
@@ -121,13 +120,16 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     FinishWorkoutEvent event,
     Emitter<WorkoutState> emit,
   ) async {
-    print('object');
     if (state.workoutKey == null) {
       return;
     }
 
-    await _mediator.send<void, FinishWorkoutCommand>(
+    unawaited(_mediator.send<void, FinishWorkoutCommand>(
       FinishWorkoutCommand(state.workoutKey!),
-    );
+    ));
+
+    emit(
+      const WorkoutState(workoutFinished: true),
+    ); //* We emit a new state with the initial values in order to Finish the workout
   }
 }
