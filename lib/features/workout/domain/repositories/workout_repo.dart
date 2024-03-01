@@ -4,7 +4,7 @@ import '../entities/workout.dart';
 abstract class WorkoutRepo {
   Future<int> saveWorkout(Workout workout);
 
-  Future<void> getSavedWorkouts();
+  Future<List<Workout>> getSavedWorkouts();
 
   Future<void> updateWorkout({
     required int workoutId,

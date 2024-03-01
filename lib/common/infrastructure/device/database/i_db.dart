@@ -28,7 +28,7 @@ abstract class IDB {
   //   int idFilter,
   // );
   Future<List<Map<String, Object?>>?> select(
-    String tableName,
-    int idFilter,
-  );
+    String tableName, {
+    int? idFilter,
+  });
 }

@@ -19,8 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           selectedItemColor: Theme.of(context).colorScheme.secondary,
           items: getTabBarItems(),
           currentIndex: state.tabIndex,
-          onTap: (index) =>
-              BlocProvider.of<MainPageCubit>(context).changeTabIndex(index),
+          onTap: (index) => BlocProvider.of<MainPageCubit>(context).changeTabIndex(index),
         );
       },
     );

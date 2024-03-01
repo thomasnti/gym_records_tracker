@@ -57,17 +57,12 @@ class WorkoutRepoImpl extends WorkoutRepo {
   }
 
   @override
-  Future<void> getSavedWorkouts() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Workout> getCurrentWorkout(int id) async {
-    final savedWorkout = await _db.select(_tableName, id);
+    final savedWorkout = await _db.select(_tableName, idFilter: id);
     if (savedWorkout == null || savedWorkout.length > 1) {
       //* Log Something
     }
-    // if (savedWorkout != null && savedWorkout.length == 1) {}
+
     final workouts = savedWorkout!.map((e) {
       return WorkoutModel.fromJson(e);
     }).toList();
@@ -112,5 +107,28 @@ class WorkoutRepoImpl extends WorkoutRepo {
       setClause,
       workoutId,
     );
+  }
+
+  @override
+  Future<List<Workout>> getSavedWorkouts() async {
+    final result = await _db.select(_tableName);
+
+    if (result != null && result.isNotEmpty) {
+      // return workouts.map((e) => null);
+      final workouts = result.map((e) {
+        return WorkoutModel.fromJson(e);
+      }).toList();
+
+      return workouts
+          .map((model) => Workout(
+                workoutDate: model.workoutDate,
+                startTime: model.startTime,
+                endTime: model.endTime,
+                exercises: exercise_mapper.mapExercises(model.exercises),
+              ))
+          .toList();
+    }
+
+    return [];
   }
 }
