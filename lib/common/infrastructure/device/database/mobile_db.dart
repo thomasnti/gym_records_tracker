@@ -44,11 +44,16 @@ class MobileDb extends IDB {
   }
 
   @override
-  Future<List<Map<String, Object?>>?> select(String tableName, int idFilter) async {
+  Future<List<Map<String, Object?>>?> select(String tableName, {int? idFilter}) async {
     await _initDB();
-    final result = await _db?.query(tableName, where: 'id = ?', whereArgs: [idFilter]);
-    print(result);
+    var result = await _db?.query(tableName, where: 'id = ?', whereArgs: [idFilter]);
+
+    if (idFilter == null) {
+      result = await _db?.query(tableName); // query WITHOUT filters
+    }
+
     _logService.log(result.toString(), eventName: 'SELECT_QUERY');
+
     if (result != null && result.isNotEmpty) {
       return result;
     }

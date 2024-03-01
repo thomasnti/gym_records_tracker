@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../workout/presentation/pages/body_parts_page.dart';
 import '../cubit/main_page_cubit.dart';
 import '../widgets/bottom_nav_bar.dart';
-import 'workout_log_page.dart';
+import 'workout_log_page/workout_log_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -30,12 +30,9 @@ class _MainPageState extends State<MainPage> {
             builder: (context, state) {
               final isLightTheme = state.themeMode == ThemeMode.light;
               return IconButton(
-                onPressed: () =>
-                    BlocProvider.of<MainPageCubit>(context).changeThemeMode(),
+                onPressed: () => BlocProvider.of<MainPageCubit>(context).changeThemeMode(),
                 // if it is light mode you want to show the dark mode button
-                icon: isLightTheme
-                    ? const Icon(Icons.dark_mode)
-                    : const Icon(Icons.light_mode),
+                icon: isLightTheme ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode),
               );
             },
           )
