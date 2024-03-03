@@ -125,10 +125,14 @@ class WorkoutRepoImpl extends WorkoutRepo {
                 startTime: model.startTime,
                 endTime: model.endTime,
                 exercises: exercise_mapper.mapExercises(model.exercises),
+                workoutId: model.id,
               ))
           .toList();
     }
 
     return [];
   }
+
+  @override
+  Future<void> deleteWorkout(int id) async => _db.delete(_tableName, id);
 }

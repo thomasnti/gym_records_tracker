@@ -15,4 +15,6 @@ abstract class WorkoutRepo {
 
 // It should return Workout not WorkoutModel, because model is related only with infrastructure
   Future<Workout> getCurrentWorkout(int id);
+
+  Future<void> deleteWorkout(int id);
 }

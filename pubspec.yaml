@@ -19,6 +19,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.2
   flutter_native_splash: ^2.2.19
+  flutter_slidable: ^3.0.1
   get_it: ^7.5.0
   http: ^0.13.6
   injectable: ^2.1.1

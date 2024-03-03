@@ -34,8 +34,12 @@ class MobileDb extends IDB {
   }
 
   @override
-  Future<void> delete(String tableName, int id) {
-    throw UnimplementedError();
+  Future<void> delete(String tableName, int id) async {
+    await _db?.delete(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
   @override

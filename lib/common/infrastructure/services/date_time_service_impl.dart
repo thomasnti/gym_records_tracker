@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 
+import '../../domain/entities/full_date_parts.dart';
 import '../../domain/services/date_time_service.dart';
 import '../../extension_methods.dart';
 
@@ -33,5 +34,19 @@ class DateTimeServiceImpl extends DateTimeService {
     final formatter = DateFormat('y-MM-dd HH:mm');
 
     return formatter.format(date);
+  }
+
+  @override
+  FullDateParts getFullDateParts(String date) {
+    final dateTime = DateTime.parse(date);
+
+    final day = DateFormat('EEEE').format(dateTime);
+    final month = DateFormat('MMMM').format(dateTime);
+
+    return FullDateParts(
+      weekDay: day,
+      dayOfMonth: dateTime.day.toString().padLeft(2, '0'), // in order to conver '2' to '02'
+      month: month,
+    );
   }
 }

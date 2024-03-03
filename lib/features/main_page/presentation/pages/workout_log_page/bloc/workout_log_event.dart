@@ -8,3 +8,9 @@ class WorkoutLogEvent extends Equatable {
 }
 
 class GetSavedWorkoutsEvent extends WorkoutLogEvent {}
+
+class DeleteWorkoutEvent extends WorkoutLogEvent {
+  final int? workoutId;
+
+  const DeleteWorkoutEvent(this.workoutId);
+}

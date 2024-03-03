@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mediatr/mediatr.dart';
 
 import '../../../../../workout/domain/entities/workout.dart';
+import '../../../../../workout/domain/usecases/delete_workout_command.dart';
 import '../../../../domain/usecases/get_saved_workouts_query.dart';
 
 part 'workout_log_event.dart';
@@ -24,13 +25,16 @@ class WorkoutLogBloc extends Bloc<WorkoutLogEvent, WorkoutLogState> {
 
   void _registerEvents() {
     on<GetSavedWorkoutsEvent>(_onGetSavedWorkoutsEvent);
+    on<DeleteWorkoutEvent>(_onDeleteWorkoutEvent);
   }
 
   Future<FutureOr<void>> _onGetSavedWorkoutsEvent(
     GetSavedWorkoutsEvent event,
     Emitter<WorkoutLogState> emit,
   ) async {
-    emit(state.copyWith(loading: true));
+    emit(state.copyWith(
+      loading: true,
+    ));
 
     final workouts = await _mediator.send<List<Workout>, GetSavedWorkoutsQuery>(
       GetSavedWorkoutsQuery(),
@@ -40,5 +44,24 @@ class WorkoutLogBloc extends Bloc<WorkoutLogEvent, WorkoutLogState> {
       loading: false,
       workouts: workouts,
     ));
+  }
+
+  FutureOr<void> _onDeleteWorkoutEvent(
+    DeleteWorkoutEvent event,
+    Emitter<WorkoutLogState> emit,
+  ) async {
+    if (event.workoutId == null) {
+      return;
+    }
+
+    emit(state.copyWith(
+      loading: true,
+    ));
+
+    await _mediator.send<void, DeleteWorkoutCommand>(DeleteWorkoutCommand(
+      event.workoutId!,
+    ));
+
+    add(GetSavedWorkoutsEvent());
   }
 }
