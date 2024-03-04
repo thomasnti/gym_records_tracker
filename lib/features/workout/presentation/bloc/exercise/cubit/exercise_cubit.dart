@@ -5,6 +5,7 @@ import 'package:mediatr/mediatr.dart';
 
 import '../../../../domain/entities/exercise_info.dart';
 import '../../../../domain/entities/exercise_set.dart';
+import '../../../../domain/usecases/exercise_set_changed.dart';
 import '../../../../domain/usecases/get_available_exercises_by_muscle_group.dart';
 
 part 'exercise_state.dart';
@@ -35,5 +36,37 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         exerciseSets: updatedExerciseSets,
       ),
     );
+  }
+
+  Future<void> onWeightChanged(
+      String newWeight, int setNumber, int? workoutId, int exerciseNum) async {
+    // NA VALW DEBOUNCE GIATI O XRHSTHS THA PLHKTROLOGEI GRHGORA
+    print(newWeight);
+    if (workoutId == null) {
+      return;
+    }
+
+    await mediator.send<bool, ExerciseSetChanged>(ExerciseSetChanged(
+      double.parse(newWeight),
+      true,
+      setNumber - 1,
+      exerciseNum,
+      workoutId,
+    ));
+  }
+
+  Future<void> onRepsChanged(String newReps, int setNumber, int? workoutId, int exerciseNum) async {
+    print(newReps);
+    if (workoutId == null) {
+      return;
+    }
+
+    await mediator.send<bool, ExerciseSetChanged>(ExerciseSetChanged(
+      double.parse(newReps),
+      true,
+      setNumber - 1,
+      exerciseNum,
+      workoutId,
+    ));
   }
 }

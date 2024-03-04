@@ -6,6 +6,7 @@ import '../entities/workout.dart';
 import 'add_exercise_command.dart';
 import 'begin_workout_command.dart';
 import 'delete_workout_command.dart';
+import 'exercise_set_changed.dart';
 import 'finish_workout_command.dart';
 import 'get_available_exercises_by_muscle_group.dart';
 
@@ -25,4 +26,7 @@ void registerWorkoutHandlers() {
 
   GetIt.I<Mediator>().registerHandler<void, DeleteWorkoutCommand, DeleteWorkoutCommandHandler>(
       () => GetIt.I<DeleteWorkoutCommandHandler>());
+
+  GetIt.I<Mediator>().registerHandler<bool, ExerciseSetChanged, ExerciseSetChangedHandler>(
+      () => GetIt.I<ExerciseSetChangedHandler>());
 }

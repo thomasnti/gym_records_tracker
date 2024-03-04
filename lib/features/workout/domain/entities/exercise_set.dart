@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class ExerciseSet extends Equatable {
   final double kilos;
-  final int repetitions;
+  final double repetitions; // double because we support half reps
   final int setNumber;
 
   const ExerciseSet({
@@ -13,7 +13,7 @@ class ExerciseSet extends Equatable {
 
   ExerciseSet copyWith({
     double? kilos,
-    int? repetitions,
+    double? repetitions,
     int? setNumber,
   }) =>
       ExerciseSet(
@@ -36,7 +36,7 @@ class ExerciseSet extends Equatable {
   factory ExerciseSet.fromMap(Map<String, dynamic> map) {
     return ExerciseSet(
       kilos: map['kilos'] as double,
-      repetitions: map['repetitions'] as int,
+      repetitions: map['repetitions'] as double,
       setNumber: map['setNumber'] as int,
     );
   }

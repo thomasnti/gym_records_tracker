@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/exercise_set.dart';
+import '../bloc/exercise/cubit/exercise_cubit.dart';
+import '../bloc/workout/workout_bloc.dart';
 
 class ExerciseSetWidget extends StatelessWidget {
   final ExerciseSet exerciseSet;
+  final int exerciseIndex;
 
-  const ExerciseSetWidget({
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController repsController = TextEditingController();
+
+  ExerciseSetWidget({
     required this.exerciseSet,
+    required this.exerciseIndex,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final curWorkoutId = context.read<WorkoutBloc>().state.workoutKey;
+
     return Column(
       children: [
         Row(
@@ -21,8 +31,7 @@ class ExerciseSetWidget extends StatelessWidget {
               width: 30,
               height: 20,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
+                  shape: BoxShape.circle, border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
               child: Center(
                 child: Text(
                   exerciseSet.setNumber.toString(),
@@ -30,25 +39,42 @@ class ExerciseSetWidget extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: TextFormField(
-                controller: TextEditingController(text: '0'),
+              child: TextField(
+                controller: weightController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Weight',
                   border: OutlineInputBorder(),
                 ),
+                onChanged: (value) {
+                  context.read<ExerciseCubit>().onWeightChanged(
+                        value,
+                        exerciseSet.setNumber,
+                        curWorkoutId,
+                        exerciseIndex,
+                      );
+                },
               ),
             ),
             const SizedBox(
               width: 10,
             ),
             Expanded(
-              child: TextFormField(
+              child: TextField(
+                controller: repsController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Reps',
                   border: OutlineInputBorder(),
                 ),
+                onChanged: (value) {
+                  context.read<ExerciseCubit>().onRepsChanged(
+                        value,
+                        exerciseSet.setNumber,
+                        curWorkoutId,
+                        exerciseIndex,
+                      );
+                },
               ),
             ),
             IconButton(

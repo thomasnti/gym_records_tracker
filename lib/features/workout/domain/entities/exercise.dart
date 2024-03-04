@@ -13,31 +13,34 @@ class Exercise extends Equatable {
 
   final List<ExerciseSet> exerciseSets;
 
+  final int exerciseIndex;
+
   /// Creates a new instance of the [Exercise] class.
   const Exercise({
     required this.exerciseName,
     this.exerciseSets = const [],
+    this.exerciseIndex = 0,
   });
 
   Exercise copyWith({
     String? exerciseName,
     List<ExerciseSet>? exerciseSets,
+    int? exerciseIndex,
   }) =>
       Exercise(
         exerciseName: exerciseName ?? this.exerciseName,
         exerciseSets: exerciseSets ?? this.exerciseSets,
+        exerciseIndex: exerciseIndex ?? this.exerciseIndex,
       );
 
   @override
-  List<Object?> get props => [
-        exerciseName,
-        exerciseSets,
-      ];
+  List<Object> get props => [exerciseName, exerciseSets, exerciseIndex];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'exerciseName': exerciseName,
       'exerciseSets': exerciseSets.map((x) => x.toMap()).toList(),
+      'exerciseIndex': exerciseIndex,
     };
   }
 
@@ -45,11 +48,11 @@ class Exercise extends Equatable {
     return Exercise(
       exerciseName: map['exerciseName'] as String,
       exerciseSets: List<ExerciseSet>.from(
-        //* It was List<int>
         (map['exerciseSets'] as List<dynamic>).map<ExerciseSet>(
           (x) => ExerciseSet.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      exerciseIndex: map['exerciseIndex'] as int,
     );
   }
 
