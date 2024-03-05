@@ -36,6 +36,7 @@ class BodyPartsBuilder extends StatelessWidget {
   Future<void> onMuscleGroupTap(BuildContext context, String bodyPartName) async {
     final exercises = await getIt<ExerciseCubit>().getAvailableExercises(bodyPartName);
 
+    // ignore: use_build_context_synchronously
     await Navigator.push(
       // ignore: use_build_context_synchronously
       context,

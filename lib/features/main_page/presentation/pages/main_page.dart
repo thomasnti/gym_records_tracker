@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
             builder: (context, state) {
               final isLightTheme = state.themeMode == ThemeMode.light;
               return IconButton(
-                onPressed: () => BlocProvider.of<MainPageCubit>(context).changeThemeMode(),
+                onPressed: () => context.read<MainPageCubit>().changeThemeMode(),
                 // if it is light mode you want to show the dark mode button
                 icon: isLightTheme ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode),
               );

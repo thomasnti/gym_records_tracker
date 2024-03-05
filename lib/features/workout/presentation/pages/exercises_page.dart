@@ -48,6 +48,43 @@ class ExercisesPage extends StatelessWidget {
             border: Border(bottom: BorderSide(color: Colors.grey)),
           ),
           child: ListTile(
+            title: Text(exercise.name),
+            trailing: IconButton(
+              icon: const Icon(Icons.info),
+              splashColor: Colors.transparent,
+              onPressed: () => showDialog(
+                context: context,
+                builder: (BuildContext ctx) => Dialog(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(exercise.fullGifPath),
+                          const SizedBox(height: 20),
+                          Column(
+                              children: exercise.instructions
+                                  .asMap()
+                                  .entries
+                                  .map((el) => Text('${el.key + 1}. ${el.value}'))
+                                  .toList()),
+                          ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                child: const Text('OK'),
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             onTap: isFromWorkout
                 ? () {
                     Navigator.of(context).pop();
@@ -55,7 +92,6 @@ class ExercisesPage extends StatelessWidget {
                     // Navigator.of(context).pop();
                   }
                 : null,
-            title: Text(exercise.name),
           ),
         );
       },

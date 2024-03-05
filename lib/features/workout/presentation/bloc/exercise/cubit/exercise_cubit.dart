@@ -7,6 +7,7 @@ import '../../../../domain/entities/exercise_info.dart';
 import '../../../../domain/entities/exercise_set.dart';
 import '../../../../domain/usecases/exercise_set_changed.dart';
 import '../../../../domain/usecases/get_available_exercises_by_muscle_group.dart';
+import '../../workout/workout_bloc.dart';
 
 part 'exercise_state.dart';
 
@@ -27,6 +28,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   }
 
   Future<void> addSet() async {
+    //! kalytera na to kanw sto workout bloc
     final newSetNumber = state.exerciseSetNumber + 1;
     final updatedExerciseSets = [...state.exerciseSets, ExerciseSet(setNumber: newSetNumber)];
 
@@ -69,4 +71,10 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       workoutId,
     ));
   }
+}
+
+class ExerciseCubitParams {
+  final WorkoutBloc workoutBloc;
+
+  ExerciseCubitParams(this.workoutBloc);
 }
