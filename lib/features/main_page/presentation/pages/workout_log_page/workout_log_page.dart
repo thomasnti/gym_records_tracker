@@ -35,82 +35,80 @@ class WorkoutLogPage extends StatelessWidget {
                 // physics: const NeverScrollableScrollPhysics(),
                 // shrinkWrap: true,
                 separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
                 itemCount: state.workouts.length,
                 itemBuilder: (context, index) {
                   final workout = state.workouts[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            Text(workout.workoutDateParts!.dayShort),
-                            Text(workout.workoutDateParts!.dayOfMonth),
-                            Text(workout.workoutDateParts!.monthShort),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: Slidable(
-                            endActionPane: ActionPane(
-                              extentRatio: 0.3,
-                              motion: const ScrollMotion(),
-                              children: [
-                                SlidableAction(
-                                  label: 'Delete',
-                                  backgroundColor: Colors.red,
-                                  icon: Icons.delete,
-                                  onPressed: (ctx) => ctx
-                                      .read<WorkoutLogBloc>()
-                                      .add(DeleteWorkoutEvent(workout.workoutId)),
-                                )
-                              ],
-                            ),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  // alignment: Alignment.centerLeft,
-                                  width: double.infinity, // takes the available space
-                                  constraints: const BoxConstraints(minHeight: 60),
-                                  decoration: BoxDecoration(
-                                    color: Colors.lightGreen.shade100,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: workout.exercises
-                                          .map(
-                                            (e) => Text(
-                                              '${e.exerciseSets.length}x  ${e.exerciseName}',
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 8, // same as padding
-                                  right: 8,
-                                  child: Text(
-                                    // '55 min',
-                                    _displayDuration(workout),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                  return Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text(workout.workoutDateParts!.dayShort),
+                          Text(workout.workoutDateParts!.dayOfMonth),
+                          Text(workout.workoutDateParts!.monthShort),
+                        ],
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Slidable(
+                          endActionPane: ActionPane(
+                            extentRatio: 0.3,
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                label: 'Delete',
+                                backgroundColor: Colors.red,
+                                icon: Icons.delete,
+                                onPressed: (ctx) => ctx
+                                    .read<WorkoutLogBloc>()
+                                    .add(DeleteWorkoutEvent(workout.workoutId)),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
+                          child: Stack(
+                            children: [
+                              Container(
+                                // alignment: Alignment.centerLeft,
+                                width: double.infinity, // takes the available space
+                                constraints: const BoxConstraints(minHeight: 60),
+                                decoration: BoxDecoration(
+                                  color: Colors.lightGreen.shade100,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: workout.exercises
+                                        .map(
+                                          (e) => Text(
+                                            '${e.exerciseSets.length}x  ${e.exerciseName}',
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 8, // same as padding
+                                right: 8,
+                                child: Text(
+                                  // '55 min',
+                                  _displayDuration(workout),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   );
                 },
               ),
