@@ -88,15 +88,20 @@ class WorkoutRepoImpl extends WorkoutRepo {
     final exercisesBuffer = StringBuffer(); // the data to update
 
     for (final exercise in existingWorkoutExercises) {
-      exercisesBuffer.write('${exercise.toJson()},');
+      exercisesBuffer.write(exercise.toJson()); // I removed the comma from the end here
+    }
+
+    if (existingWorkoutExercises.isNotEmpty) {
+      exercisesBuffer.write(',');
     }
 
     // append the new exercise
     if (exerciseToAdd != null) {
       exercisesBuffer.write(exerciseToAdd.toJson());
       // Αν δεν ειναι κενο θα πρεπει να φτιαχνω ενα string . Θα looparw τα existingWorkoutExercises και θα εκτελώ exercise.toJson(), το αποτελεσμα θα το κανω append σε ενα string . Στο τελος θα προσθετω το existing
-      setClause = {'EXERCISES': '[$exercisesBuffer]'};
     }
+
+    setClause = {'EXERCISES': '[$exercisesBuffer]'};
 
     if (workoutToUpdate != null) {
       setClause['END_TIME'] = workoutToUpdate.endTime!;

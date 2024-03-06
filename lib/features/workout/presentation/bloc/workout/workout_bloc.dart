@@ -9,6 +9,7 @@ import '../../../domain/entities/exercise.dart';
 import '../../../domain/entities/exercise_set.dart';
 import '../../../domain/entities/workout.dart';
 import '../../../domain/usecases/add_exercise_command.dart';
+import '../../../domain/usecases/add_set_to_exercise_query.dart';
 import '../../../domain/usecases/begin_workout_command.dart';
 import '../../../domain/usecases/finish_workout_command.dart';
 
@@ -79,27 +80,42 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   FutureOr<void> _onAddSetToExercise(
     AddSetToExerciseEvent event,
     Emitter<WorkoutState> emit,
-  ) {
-    // In Dart, when you assign an object from one variable to another, you're actually creating a reference to the same object in memory. So, if state.exercises[currentExerciseIndex] is a reference to the same object as currentExercise, any changes you make to currentExercise will also affect state.exercises[currentExerciseIndex] because they both point to the same object in memory.
+  ) async {
+    if (state.workoutKey == null) {
+      return;
+    }
 
-    final currentExerciseIndex =
-        state.exercises.indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
-
-    final currentExercise = state.exercises[currentExerciseIndex];
-    final currentExerciseSetNum = currentExercise.exerciseSets.length;
-    final updatedExercise = currentExercise.copyWith(
-      exerciseSets: [
-        ...currentExercise.exerciseSets,
-        ExerciseSet(setNumber: currentExerciseSetNum + 1),
-      ],
+    final updatedExercises = await _mediator.send<List<Exercise>, AddSetToExerciseQuery>(
+      AddSetToExerciseQuery(
+        state.workoutKey!,
+        event.exerciseIndex,
+      ),
     );
 
-    // * It is needed
-    state.exercises[currentExerciseIndex] = updatedExercise;
-
     emit(state.copyWith(
-      exerciseSets: updatedExercise.exerciseSets,
+      exercises: updatedExercises,
     ));
+
+    // In Dart, when you assign an object from one variable to another, you're actually creating a reference to the same object in memory. So, if state.exercises[currentExerciseIndex] is a reference to the same object as currentExercise, any changes you make to currentExercise will also affect state.exercises[currentExerciseIndex] because they both point to the same object in memory.
+
+    // final currentExerciseIndex =
+    //     state.exercises.indexWhere((exercise) => exercise.exerciseName == event.exerciseName);
+
+    // final currentExercise = state.exercises[currentExerciseIndex];
+    // final currentExerciseSetNum = currentExercise.exerciseSets.length;
+    // final updatedExercise = currentExercise.copyWith(
+    //   exerciseSets: [
+    //     ...currentExercise.exerciseSets,
+    //     ExerciseSet(setNumber: currentExerciseSetNum + 1),
+    //   ],
+    // );
+
+    // // * It is needed
+    // state.exercises[currentExerciseIndex] = updatedExercise;
+
+    // emit(state.copyWith(
+    //   exerciseSets: updatedExercise.exerciseSets,
+    // ));
   }
 
   Future<FutureOr<void>> _onBeginNewWorkoutEvent(

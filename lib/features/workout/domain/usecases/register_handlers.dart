@@ -1,9 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:mediatr/mediatr.dart';
 
+import '../entities/exercise.dart';
 import '../entities/exercise_info.dart';
 import '../entities/workout.dart';
 import 'add_exercise_command.dart';
+import 'add_set_to_exercise_query.dart';
 import 'begin_workout_command.dart';
 import 'delete_workout_command.dart';
 import 'exercise_set_changed.dart';
@@ -29,4 +31,8 @@ void registerWorkoutHandlers() {
 
   GetIt.I<Mediator>().registerHandler<bool, ExerciseSetChanged, ExerciseSetChangedHandler>(
       () => GetIt.I<ExerciseSetChangedHandler>());
+
+  GetIt.I<Mediator>()
+      .registerHandler<List<Exercise>, AddSetToExerciseQuery, AddSetToExerciseQueryHandler>(
+          () => GetIt.I<AddSetToExerciseQueryHandler>());
 }

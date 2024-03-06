@@ -19,8 +19,11 @@ class AddExerciseToWorkoutEvent extends WorkoutEvent {
 
 class AddSetToExerciseEvent extends WorkoutEvent {
   final String exerciseName;
+  final int exerciseIndex;
 
-  const AddSetToExerciseEvent(this.exerciseName);
+  const AddSetToExerciseEvent(this.exerciseName, this.exerciseIndex);
+
+  // const AddSetToExerciseEvent(this.exerciseIndex);
 }
 
 class FinishWorkoutEvent extends WorkoutEvent {}

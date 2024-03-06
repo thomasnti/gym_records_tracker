@@ -3,6 +3,18 @@ extension StringExtensions on String {
     final lowerCaseString = toLowerCase();
     return '${lowerCaseString[0].toUpperCase()}${substring(1)}';
   }
+
+  String removeLastCommaFromJson() {
+    print(this[length - 1]);
+    print(this[length - 2]);
+    if (isNotEmpty && this[length - 2] == ',') {
+      final lastCommaIndex = lastIndexOf(',');
+      final result = substring(0, lastCommaIndex) + substring(lastCommaIndex + 1);
+      return result;
+    }
+
+    return this;
+  }
 }
 
 extension TwoDigitExtension on int {

@@ -120,7 +120,8 @@ class NewWorkoutBody extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: state.exercises.length,
                   itemBuilder: (context, index) {
-                    return buildExerciseColumn(context, state, state.exercises[index]);
+                    return buildExerciseColumn(context, state, state.exercises[index],
+                        index); // todo: remove state.exercises[index]
                   },
                 );
               },
@@ -135,6 +136,7 @@ class NewWorkoutBody extends StatelessWidget {
     BuildContext context,
     WorkoutState state,
     Exercise exercise,
+    int exerciseIndex,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -159,7 +161,10 @@ class NewWorkoutBody extends StatelessWidget {
             );
           },
         ),
-        AddSetButton(exerciseName: exercise.exerciseName)
+        AddSetButton(
+          exerciseName: exercise.exerciseName,
+          exerciseIndex: exerciseIndex,
+        )
       ],
     );
   }
@@ -167,9 +172,11 @@ class NewWorkoutBody extends StatelessWidget {
 
 class AddSetButton extends StatelessWidget {
   final String exerciseName;
+  final int exerciseIndex;
 
   const AddSetButton({
     required this.exerciseName,
+    required this.exerciseIndex,
     super.key,
   });
 
@@ -179,7 +186,7 @@ class AddSetButton extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: TextButton(
           onPressed: () {
-            context.read<WorkoutBloc>().add(AddSetToExerciseEvent(exerciseName));
+            context.read<WorkoutBloc>().add(AddSetToExerciseEvent(exerciseName, exerciseIndex));
           },
           child: Text(
             'Add Set',
