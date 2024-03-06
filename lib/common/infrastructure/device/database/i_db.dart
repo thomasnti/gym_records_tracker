@@ -31,4 +31,6 @@ abstract class IDB {
     String tableName, {
     int? idFilter,
   });
+
+  Future<bool> tableExists(String tableName);
 }

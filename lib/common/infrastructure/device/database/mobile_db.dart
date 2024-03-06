@@ -50,6 +50,9 @@ class MobileDb extends IDB {
   @override
   Future<List<Map<String, Object?>>?> select(String tableName, {int? idFilter}) async {
     await _initDB();
+    if (!await tableExists(tableName)) {
+      return null;
+    }
     var result = await _db?.query(tableName, where: 'id = ?', whereArgs: [idFilter]);
 
     if (idFilter == null) {
@@ -118,5 +121,15 @@ class MobileDb extends IDB {
     );
 
     return rowsAffected ?? 0;
+  }
+
+  @override
+  Future<bool> tableExists(String tableName) async {
+    await _initDB();
+    final query =
+        "SELECT 1 as [exists] FROM sqlite_master WHERE type='table' AND name='$tableName'"; // sqlite_master is a special table in SQLite that stores metadata about the database schema
+    final result = await _db!.rawQuery(query);
+
+    return result.isNotEmpty;
   }
 }
