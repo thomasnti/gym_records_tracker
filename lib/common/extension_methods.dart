@@ -5,8 +5,8 @@ extension StringExtensions on String {
   }
 
   String removeLastCommaFromJson() {
-    print(this[length - 1]);
-    print(this[length - 2]);
+    // ignore: avoid_print
+    print('${this[length - 1]} ${this[length - 2]}');
     if (isNotEmpty && this[length - 2] == ',') {
       final lastCommaIndex = lastIndexOf(',');
       final result = substring(0, lastCommaIndex) + substring(lastCommaIndex + 1);

@@ -88,11 +88,7 @@ class WorkoutRepoImpl extends WorkoutRepo {
     final exercisesBuffer = StringBuffer(); // the data to update
 
     for (final exercise in existingWorkoutExercises) {
-      exercisesBuffer.write(exercise.toJson()); // I removed the comma from the end here
-    }
-
-    if (existingWorkoutExercises.isNotEmpty) {
-      exercisesBuffer.write(',');
+      exercisesBuffer.write('${exercise.toJson()},'); // add a comma between Exercises
     }
 
     // append the new exercise
