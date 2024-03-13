@@ -11,6 +11,7 @@ import '../../../domain/entities/workout.dart';
 import '../../../domain/usecases/add_exercise_command.dart';
 import '../../../domain/usecases/add_set_to_exercise_query.dart';
 import '../../../domain/usecases/begin_workout_command.dart';
+import '../../../domain/usecases/delete_exercise_from_workout_command.dart';
 import '../../../domain/usecases/finish_workout_command.dart';
 
 part 'workout_event.dart';
@@ -33,6 +34,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<AddSetToExerciseEvent>(_onAddSetToExercise);
     on<BeginNewWorkoutEvent>(_onBeginNewWorkoutEvent);
     on<FinishWorkoutEvent>(_onFinishWorkoutEvent);
+    on<DeleteExerciseEvent>(_onDeleteExerciseEvent);
   }
 
   FutureOr<void> _onSelectBodyPart(
@@ -147,5 +149,25 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     emit(
       const WorkoutState(workoutFinished: true),
     ); //* We emit a new state with the initial values in order to Finish the workout
+  }
+
+  FutureOr<void> _onDeleteExerciseEvent(
+    DeleteExerciseEvent event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    if (state.workoutKey == null) {
+      return;
+    }
+
+    final updatedExercises = await _mediator.send<List<Exercise>, DeleteExerciseFromWorkoutCommand>(
+      DeleteExerciseFromWorkoutCommand(
+        event.exercise,
+        state.workoutKey!,
+      ),
+    );
+
+    emit(state.copyWith(
+      exercises: updatedExercises,
+    ));
   }
 }

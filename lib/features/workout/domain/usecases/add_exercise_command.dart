@@ -29,7 +29,7 @@ class AddExerciseCommandHandler extends IRequestHandler<Workout, AddExerciseComm
     final exerciseToAdd = Exercise(
       exerciseName: request.exerciseName,
       exerciseSets: const [ExerciseSet(setNumber: 1)],
-      exerciseIndex: request.existingWorkoutExercises.length + 1,
+      exerciseIndex: request.existingWorkoutExercises.length,
     );
 
     await _workoutRepo.updateWorkout(

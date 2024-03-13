@@ -252,7 +252,10 @@ class ExerciseTitleAndOptions extends StatelessWidget {
                         ),
                       ),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          workoutBloc.add(DeleteExerciseEvent(exercise));
+                          Navigator.of(context).pop(); //? close bottom sheet
+                        },
                         icon: const Icon(
                           Icons.delete,
                           size: 30,

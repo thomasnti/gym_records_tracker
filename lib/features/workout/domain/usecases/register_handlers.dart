@@ -7,6 +7,7 @@ import '../entities/workout.dart';
 import 'add_exercise_command.dart';
 import 'add_set_to_exercise_query.dart';
 import 'begin_workout_command.dart';
+import 'delete_exercise_from_workout_command.dart';
 import 'delete_workout_command.dart';
 import 'exercise_set_changed.dart';
 import 'finish_workout_command.dart';
@@ -40,4 +41,8 @@ void registerWorkoutHandlers() {
   GetIt.I<Mediator>().registerHandler<ExerciseInfo?, GetExerciseInfoByExerciseQuery,
           GetExerciseInfoByExerciseQueryHandler>(
       () => GetIt.I<GetExerciseInfoByExerciseQueryHandler>());
+
+  GetIt.I<Mediator>().registerHandler<List<Exercise>, DeleteExerciseFromWorkoutCommand,
+          DeleteExerciseFromWorkoutCommandHandler>(
+      () => GetIt.I<DeleteExerciseFromWorkoutCommandHandler>());
 }

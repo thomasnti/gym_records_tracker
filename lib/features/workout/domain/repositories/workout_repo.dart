@@ -10,7 +10,7 @@ abstract class WorkoutRepo {
     required int workoutId,
     Exercise? exerciseToAdd,
     List<Exercise> existingWorkoutExercises = const [],
-    Workout? workoutToUpdate,
+    Workout? workoutToUpdate, // todo: Give a more meaningful name
   });
 
 // It should return Workout not WorkoutModel, because model is related only with infrastructure

@@ -24,7 +24,7 @@ import '../common/infrastructure/services/date_time_service_impl.dart' as _i4;
 import '../common/infrastructure/services/log_service/debug_console_service.dart'
     as _i12;
 import '../features/main_page/domain/usecases/get_saved_workouts_query.dart'
-    as _i28;
+    as _i29;
 import '../features/main_page/presentation/pages/workout_log_page/bloc/workout_log_bloc.dart'
     as _i17;
 import '../features/workout/data/repositories/exercise_repo_impl.dart' as _i8;
@@ -35,11 +35,13 @@ import '../features/workout/domain/usecases/add_exercise_command.dart' as _i22;
 import '../features/workout/domain/usecases/add_set_to_exercise_query.dart'
     as _i23;
 import '../features/workout/domain/usecases/begin_workout_command.dart' as _i24;
-import '../features/workout/domain/usecases/delete_workout_command.dart'
+import '../features/workout/domain/usecases/delete_exercise_from_workout_command.dart'
     as _i25;
-import '../features/workout/domain/usecases/exercise_set_changed.dart' as _i26;
+import '../features/workout/domain/usecases/delete_workout_command.dart'
+    as _i26;
+import '../features/workout/domain/usecases/exercise_set_changed.dart' as _i27;
 import '../features/workout/domain/usecases/finish_workout_command.dart'
-    as _i27;
+    as _i28;
 import '../features/workout/domain/usecases/get_available_exercises_by_muscle_group.dart'
     as _i9;
 import '../features/workout/domain/usecases/get_exercise_info_by_exercise_query.dart'
@@ -91,14 +93,16 @@ extension GetItInjectableX on _i1.GetIt {
               gh<_i20.WorkoutRepo>(),
               gh<_i3.DateTimeService>(),
             ));
-    gh.factory<_i25.DeleteWorkoutCommandHandler>(
-        () => _i25.DeleteWorkoutCommandHandler(gh<_i20.WorkoutRepo>()));
-    gh.factory<_i26.ExerciseSetChangedHandler>(
-        () => _i26.ExerciseSetChangedHandler(gh<_i20.WorkoutRepo>()));
-    gh.lazySingleton<_i27.FinishWorkoutCommandHandler>(
-        () => _i27.FinishWorkoutCommandHandler(gh<_i20.WorkoutRepo>()));
-    gh.factory<_i28.GetSavedWorkoutsQueryHandler>(
-        () => _i28.GetSavedWorkoutsQueryHandler(
+    gh.factory<_i25.DeleteExerciseFromWorkoutCommandHandler>(() =>
+        _i25.DeleteExerciseFromWorkoutCommandHandler(gh<_i20.WorkoutRepo>()));
+    gh.factory<_i26.DeleteWorkoutCommandHandler>(
+        () => _i26.DeleteWorkoutCommandHandler(gh<_i20.WorkoutRepo>()));
+    gh.factory<_i27.ExerciseSetChangedHandler>(
+        () => _i27.ExerciseSetChangedHandler(gh<_i20.WorkoutRepo>()));
+    gh.lazySingleton<_i28.FinishWorkoutCommandHandler>(
+        () => _i28.FinishWorkoutCommandHandler(gh<_i20.WorkoutRepo>()));
+    gh.factory<_i29.GetSavedWorkoutsQueryHandler>(
+        () => _i29.GetSavedWorkoutsQueryHandler(
               gh<_i20.WorkoutRepo>(),
               gh<_i3.DateTimeService>(),
             ));
