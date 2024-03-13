@@ -11,6 +11,7 @@ import 'delete_workout_command.dart';
 import 'exercise_set_changed.dart';
 import 'finish_workout_command.dart';
 import 'get_available_exercises_by_muscle_group.dart';
+import 'get_exercise_info_by_exercise_query.dart';
 
 void registerWorkoutHandlers() {
   GetIt.I<Mediator>().registerHandler<List<ExerciseInfo>, GetAvailableExercisesByMuscleGroup,
@@ -35,4 +36,8 @@ void registerWorkoutHandlers() {
   GetIt.I<Mediator>()
       .registerHandler<List<Exercise>, AddSetToExerciseQuery, AddSetToExerciseQueryHandler>(
           () => GetIt.I<AddSetToExerciseQueryHandler>());
+
+  GetIt.I<Mediator>().registerHandler<ExerciseInfo?, GetExerciseInfoByExerciseQuery,
+          GetExerciseInfoByExerciseQueryHandler>(
+      () => GetIt.I<GetExerciseInfoByExerciseQueryHandler>());
 }

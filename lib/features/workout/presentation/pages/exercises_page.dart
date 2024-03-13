@@ -54,34 +54,8 @@ class ExercisesPage extends StatelessWidget {
               splashColor: Colors.transparent,
               onPressed: () => showDialog(
                 context: context,
-                builder: (BuildContext ctx) => Dialog(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(exercise.fullGifPath),
-                          const SizedBox(height: 20),
-                          Column(
-                              children: exercise.instructions
-                                  .asMap()
-                                  .entries
-                                  .map((el) => Text('${el.key + 1}. ${el.value}'))
-                                  .toList()),
-                          ButtonBar(
-                            alignment: MainAxisAlignment.center,
-                            children: [
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                builder: (BuildContext ctx) => ExerciseInfoDialog(
+                  exerciseInfo: exercise,
                 ),
               ),
             ),
@@ -95,6 +69,53 @@ class ExercisesPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ExerciseInfoDialog extends StatelessWidget {
+  final ExerciseInfo? exerciseInfo;
+
+  const ExerciseInfoDialog({
+    required this.exerciseInfo,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (exerciseInfo == null) {
+      return const Dialog(
+        child: Text('Exercise info could not be found for this exercise'),
+      );
+    }
+    return Dialog(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(exerciseInfo!.fullGifPath),
+              const SizedBox(height: 20),
+              Column(
+                  children: exerciseInfo!.instructions
+                      .asMap()
+                      .entries
+                      .map((el) => Text('${el.key + 1}. ${el.value}'))
+                      .toList()),
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

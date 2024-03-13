@@ -7,6 +7,7 @@ import '../../../../domain/entities/exercise_info.dart';
 import '../../../../domain/entities/exercise_set.dart';
 import '../../../../domain/usecases/exercise_set_changed.dart';
 import '../../../../domain/usecases/get_available_exercises_by_muscle_group.dart';
+import '../../../../domain/usecases/get_exercise_info_by_exercise_query.dart';
 import '../../workout/workout_bloc.dart';
 
 part 'exercise_state.dart';
@@ -70,6 +71,14 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       exerciseNum,
       workoutId,
     ));
+  }
+
+  Future<ExerciseInfo?> getExerciseInfo(String exerciseName) async {
+    final exerciceInfo = await mediator.send<ExerciseInfo?, GetExerciseInfoByExerciseQuery>(
+      GetExerciseInfoByExerciseQuery(exerciseName),
+    );
+
+    return exerciceInfo;
   }
 }
 

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +12,7 @@ import '../widgets/exercise_set_widget.dart';
 import '../widgets/workout_date.dart';
 import '../widgets/workout_duration.dart';
 import 'body_parts_page.dart';
+import 'exercises_page.dart';
 
 //? Η καλύτερη λύση ειναι να εχω ενα bloc για ολο το workout (WorkoutBloc) και αλλο ενα για την κάθε άσκηση ξεχωριστά (ExerciseBloc ΄ή Cubit). Αυτό για να γίνει καλό θα είναι όταν ξεκιναω την άσκηση να γράφεται στη βαση μια νέα εγγραφή και κάθε φορά που αλλάζω κάτι να πάει και να κάνει update και να γυρνάει τα νέα data. Ουσιαστικά το delete workout θα διαγράφει ολόκληρη γραμμη απο την βαση και το delete set ή delete exercise θα κάνει update . Λογικά ολα τα exercise θα μπαινουν σε ενα array of objects και καπως θα κάνω manipulate αυτο.
 
@@ -206,6 +209,9 @@ class ExerciseTitleAndOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final exerciseCubit = context.read<ExerciseCubit>();
+    final workoutBloc = context.read<WorkoutBloc>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -226,7 +232,17 @@ class ExerciseTitleAndOptions extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final info = await exerciseCubit.getExerciseInfo(exercise.exerciseName);
+
+                          await showDialog(
+                            // ignore: use_build_context_synchronously
+                            context: context,
+                            builder: (context) => ExerciseInfoDialog(
+                              exerciseInfo: info,
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.info_outline,
                           size: 30,
