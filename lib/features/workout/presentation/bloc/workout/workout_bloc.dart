@@ -12,6 +12,7 @@ import '../../../domain/usecases/add_exercise_command.dart';
 import '../../../domain/usecases/add_set_to_exercise_query.dart';
 import '../../../domain/usecases/begin_workout_command.dart';
 import '../../../domain/usecases/delete_exercise_from_workout_command.dart';
+import '../../../domain/usecases/delete_set_command.dart';
 import '../../../domain/usecases/finish_workout_command.dart';
 
 part 'workout_event.dart';
@@ -35,6 +36,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<BeginNewWorkoutEvent>(_onBeginNewWorkoutEvent);
     on<FinishWorkoutEvent>(_onFinishWorkoutEvent);
     on<DeleteExerciseEvent>(_onDeleteExerciseEvent);
+    on<DeleteSetEvent>(_onDeleteSetEvent);
   }
 
   FutureOr<void> _onSelectBodyPart(
@@ -163,6 +165,24 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       DeleteExerciseFromWorkoutCommand(
         event.exercise,
         state.workoutKey!,
+      ),
+    );
+
+    emit(state.copyWith(
+      exercises: updatedExercises,
+    ));
+  }
+
+  FutureOr<void> _onDeleteSetEvent(DeleteSetEvent event, Emitter<WorkoutState> emit) async {
+    if (state.workoutKey == null) {
+      return;
+    }
+
+    final updatedExercises = await _mediator.send<List<Exercise>, DeleteSetCommand>(
+      DeleteSetCommand(
+        workoutKey: state.workoutKey!,
+        setIndex: event.setIndex,
+        exerciseIndex: event.exerciseIndex,
       ),
     );
 

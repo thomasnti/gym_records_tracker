@@ -156,7 +156,8 @@ class NewWorkoutBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ExerciseSetWidget(
                   exerciseSet: exercise.exerciseSets[index],
-                  exerciseIndex: index,
+                  exerciseIndex: exerciseIndex,
+                  setIndex: index,
                   //? this adds sets to all exercises
                   // exerciseSet: state.exerciseSets[index],
                 );

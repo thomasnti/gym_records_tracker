@@ -50,3 +50,14 @@ For instance, you might use the accentColor for things like buttons, switches, s
 /*
 In Flutter, you can define a color scheme using the ColorScheme class provided by the framework. This class encapsulates a set of colors that are commonly used in an app's user interface, such as primary, secondary, background, error, and text colors.
  */
+
+
+// ! Dark theme possible colors
+// Deep Blue or Navy (#0D47A1):
+// Dark blue provides a strong contrast to warm colors like orange and red. It adds depth and sophistication to your dark theme.
+// Charcoal Gray (#333333):
+// Gray tones work well in dark themes. Charcoal gray is neutral and pairs nicely with vibrant colors. It won’t overpower your primary colors.
+// Dark Teal (#006064):
+// Teal is a mix of blue and green. Dark teal adds richness and elegance to your palette. It complements warm tones without being too harsh.
+// Burgundy or Maroon (#800000):
+// Burgundy or maroon is a deep red-brown color. It harmonizes with your red tones and adds a touch of sophistication.

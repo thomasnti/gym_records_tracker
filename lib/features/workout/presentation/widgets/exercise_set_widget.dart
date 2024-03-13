@@ -8,6 +8,7 @@ import '../bloc/workout/workout_bloc.dart';
 class ExerciseSetWidget extends StatelessWidget {
   final ExerciseSet exerciseSet;
   final int exerciseIndex;
+  final int setIndex;
 
   final TextEditingController weightController = TextEditingController();
   final TextEditingController repsController = TextEditingController();
@@ -15,12 +16,13 @@ class ExerciseSetWidget extends StatelessWidget {
   ExerciseSetWidget({
     required this.exerciseSet,
     required this.exerciseIndex,
+    required this.setIndex,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final curWorkoutId = context.read<WorkoutBloc>().state.workoutKey;
+    final bloc = context.read<WorkoutBloc>();
 
     return Column(
       children: [
@@ -31,7 +33,8 @@ class ExerciseSetWidget extends StatelessWidget {
               width: 30,
               height: 20,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
               child: Center(
                 child: Text(
                   exerciseSet.setNumber.toString(),
@@ -50,7 +53,7 @@ class ExerciseSetWidget extends StatelessWidget {
                   context.read<ExerciseCubit>().onWeightChanged(
                         value,
                         exerciseSet.setNumber,
-                        curWorkoutId,
+                        bloc.state.workoutKey,
                         exerciseIndex,
                       );
                 },
@@ -71,7 +74,7 @@ class ExerciseSetWidget extends StatelessWidget {
                   context.read<ExerciseCubit>().onRepsChanged(
                         value,
                         exerciseSet.setNumber,
-                        curWorkoutId,
+                        bloc.state.workoutKey,
                         exerciseIndex,
                       );
                 },
@@ -98,7 +101,13 @@ class ExerciseSetWidget extends StatelessWidget {
                             ),
                           ),
                           TextButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              bloc.add(DeleteSetEvent(
+                                exerciseIndex,
+                                setIndex,
+                              ));
+                              Navigator.of(context).pop();
+                            },
                             icon: const Icon(
                               Icons.delete,
                               size: 30,
