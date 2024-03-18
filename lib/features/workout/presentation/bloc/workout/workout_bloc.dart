@@ -11,6 +11,7 @@ import '../../../domain/entities/workout.dart';
 import '../../../domain/usecases/add_exercise_command.dart';
 import '../../../domain/usecases/add_set_to_exercise_query.dart';
 import '../../../domain/usecases/begin_workout_command.dart';
+import '../../../domain/usecases/copy_set_command.dart';
 import '../../../domain/usecases/delete_exercise_from_workout_command.dart';
 import '../../../domain/usecases/delete_set_command.dart';
 import '../../../domain/usecases/finish_workout_command.dart';
@@ -37,6 +38,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<FinishWorkoutEvent>(_onFinishWorkoutEvent);
     on<DeleteExerciseEvent>(_onDeleteExerciseEvent);
     on<DeleteSetEvent>(_onDeleteSetEvent);
+    on<CopySetEvent>(_onCopySetEvent);
   }
 
   FutureOr<void> _onSelectBodyPart(
@@ -180,6 +182,24 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
 
     final updatedExercises = await _mediator.send<List<Exercise>, DeleteSetCommand>(
       DeleteSetCommand(
+        workoutKey: state.workoutKey!,
+        setIndex: event.setIndex,
+        exerciseIndex: event.exerciseIndex,
+      ),
+    );
+
+    emit(state.copyWith(
+      exercises: updatedExercises,
+    ));
+  }
+
+  FutureOr<void> _onCopySetEvent(CopySetEvent event, Emitter<WorkoutState> emit) async {
+    if (state.workoutKey == null) {
+      return;
+    }
+
+    final updatedExercises = await _mediator.send<List<Exercise>, CopySetCommand>(
+      CopySetCommand(
         workoutKey: state.workoutKey!,
         setIndex: event.setIndex,
         exerciseIndex: event.exerciseIndex,

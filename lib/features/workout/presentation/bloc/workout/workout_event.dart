@@ -38,3 +38,10 @@ class DeleteSetEvent extends WorkoutEvent {
 
   const DeleteSetEvent(this.exerciseIndex, this.setIndex);
 }
+
+class CopySetEvent extends WorkoutEvent {
+  final int exerciseIndex;
+  final int setIndex;
+
+  const CopySetEvent(this.exerciseIndex, this.setIndex);
+}

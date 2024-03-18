@@ -91,7 +91,13 @@ class ExerciseSetWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              bloc.add(CopySetEvent(
+                                exerciseIndex,
+                                setIndex,
+                              ));
+                              Navigator.of(context).pop();
+                            },
                             icon: const Icon(
                               Icons.copy_rounded,
                               size: 30,

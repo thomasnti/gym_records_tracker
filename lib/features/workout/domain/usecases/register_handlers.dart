@@ -7,6 +7,7 @@ import '../entities/workout.dart';
 import 'add_exercise_command.dart';
 import 'add_set_to_exercise_query.dart';
 import 'begin_workout_command.dart';
+import 'copy_set_command.dart';
 import 'delete_exercise_from_workout_command.dart';
 import 'delete_set_command.dart';
 import 'delete_workout_command.dart';
@@ -49,4 +50,7 @@ void registerWorkoutHandlers() {
 
   GetIt.I<Mediator>().registerHandler<List<Exercise>, DeleteSetCommand, DeleteSetCommandHandler>(
       () => GetIt.I<DeleteSetCommandHandler>());
+
+  GetIt.I<Mediator>().registerHandler<List<Exercise>, CopySetCommand, CopySetCommandHandler>(
+      () => GetIt.I<CopySetCommandHandler>());
 }

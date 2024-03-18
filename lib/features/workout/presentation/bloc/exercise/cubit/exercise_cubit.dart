@@ -8,6 +8,7 @@ import '../../../../domain/entities/exercise_set.dart';
 import '../../../../domain/usecases/exercise_set_changed.dart';
 import '../../../../domain/usecases/get_available_exercises_by_muscle_group.dart';
 import '../../../../domain/usecases/get_exercise_info_by_exercise_query.dart';
+import '../../workout/workout_bloc.dart';
 
 part 'exercise_state.dart';
 
@@ -25,19 +26,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
             GetAvailableExercisesByMuscleGroup(bodyPart));
 
     return exercisesOrFailure;
-  }
-
-  Future<void> addSet() async {
-    //! kalytera na to kanw sto workout bloc
-    final newSetNumber = state.exerciseSetNumber + 1;
-    final updatedExerciseSets = [...state.exerciseSets, ExerciseSet(setNumber: newSetNumber)];
-
-    emit(
-      state.copyWith(
-        exerciseSetNumber: newSetNumber,
-        exerciseSets: updatedExerciseSets,
-      ),
-    );
   }
 
   Future<void> onWeightChanged(
@@ -65,7 +53,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
     await mediator.send<bool, ExerciseSetChanged>(ExerciseSetChanged(
       double.parse(newReps),
-      true,
+      false, // weight changed false
       setNumber - 1,
       exerciseNum,
       workoutId,
