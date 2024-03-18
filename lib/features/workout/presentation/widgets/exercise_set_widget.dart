@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../common/extension_methods.dart';
 import '../../domain/entities/exercise_set.dart';
 import '../bloc/exercise/cubit/exercise_cubit.dart';
 import '../bloc/workout/workout_bloc.dart';
 
-class ExerciseSetWidget extends StatelessWidget {
+class ExerciseSetWidget extends StatefulWidget {
   final ExerciseSet exerciseSet;
   final int exerciseIndex;
   final int setIndex;
 
-  final TextEditingController weightController = TextEditingController();
-  final TextEditingController repsController = TextEditingController();
-
-  ExerciseSetWidget({
+  const ExerciseSetWidget({
     required this.exerciseSet,
     required this.exerciseIndex,
     required this.setIndex,
     super.key,
   });
+
+  @override
+  State<ExerciseSetWidget> createState() => _ExerciseSetWidgetState();
+}
+
+class _ExerciseSetWidgetState extends State<ExerciseSetWidget> {
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController repsController = TextEditingController();
+
+  @override
+  void initState() {
+    weightController.text = widget.exerciseSet.kilos.toStringWithoutTrailingZeroes();
+    repsController.text = widget.exerciseSet.repetitions.toStringWithoutTrailingZeroes();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +50,7 @@ class ExerciseSetWidget extends StatelessWidget {
                   border: Border.all(width: 1, color: Theme.of(context).primaryColor)),
               child: Center(
                 child: Text(
-                  exerciseSet.setNumber.toString(),
+                  widget.exerciseSet.setNumber.toString(),
                 ),
               ),
             ),
@@ -52,9 +65,9 @@ class ExerciseSetWidget extends StatelessWidget {
                 onChanged: (value) {
                   context.read<ExerciseCubit>().onWeightChanged(
                         value,
-                        exerciseSet.setNumber,
+                        widget.exerciseSet.setNumber,
                         bloc.state.workoutKey,
-                        exerciseIndex,
+                        widget.exerciseIndex,
                       );
                 },
               ),
@@ -73,9 +86,9 @@ class ExerciseSetWidget extends StatelessWidget {
                 onChanged: (value) {
                   context.read<ExerciseCubit>().onRepsChanged(
                         value,
-                        exerciseSet.setNumber,
+                        widget.exerciseSet.setNumber,
                         bloc.state.workoutKey,
-                        exerciseIndex,
+                        widget.exerciseIndex,
                       );
                 },
               ),
@@ -93,8 +106,8 @@ class ExerciseSetWidget extends StatelessWidget {
                           TextButton.icon(
                             onPressed: () {
                               bloc.add(CopySetEvent(
-                                exerciseIndex,
-                                setIndex,
+                                widget.exerciseIndex,
+                                widget.setIndex,
                               ));
                               Navigator.of(context).pop();
                             },
@@ -109,8 +122,8 @@ class ExerciseSetWidget extends StatelessWidget {
                           TextButton.icon(
                             onPressed: () {
                               bloc.add(DeleteSetEvent(
-                                exerciseIndex,
-                                setIndex,
+                                widget.exerciseIndex,
+                                widget.setIndex,
                               ));
                               Navigator.of(context).pop();
                             },

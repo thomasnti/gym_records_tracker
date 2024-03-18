@@ -20,3 +20,15 @@ extension StringExtensions on String {
 extension TwoDigitExtension on int {
   String asTwoDigitString() => toString().padLeft(2, '0');
 }
+
+extension DoubleExtension on double {
+  String toStringWithoutTrailingZeroes() {
+    String str = toString();
+    if (str.contains('.')) {
+      str = str.replaceAll(RegExp(r'0*$'), ''); // Remove trailing zeroes
+      str = str.replaceAll(RegExp(r'\.$'), ''); // Remove trailing decimal point
+    }
+
+    return str;
+  }
+}
