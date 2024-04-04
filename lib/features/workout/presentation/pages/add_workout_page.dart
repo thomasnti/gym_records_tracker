@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/domain/services/date_time_service.dart';
+import '../../../../common/presentation/theme/app_theme.dart';
 import '../../../../dependency_injection/dependency_injection.dart';
 import '../../domain/entities/exercise.dart';
 import '../bloc/exercise/cubit/exercise_cubit.dart';
@@ -83,17 +84,18 @@ class WorkoutFab extends StatelessWidget {
         context.read<WorkoutBloc>().add(SelectBodyPartEvent());
       },
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-      label: const Row(
+      label: Row(
         children: [
-          Icon(Icons.add),
-          SizedBox(
+          Icon(
+            Icons.add,
+            color: Theme.of(context).colorScheme.fabTextColor,
+          ),
+          const SizedBox(
             width: 10,
           ),
           Text(
             'Add Exercise',
-            style: TextStyle(
-              fontSize: 15,
-            ),
+            style: TextStyle(fontSize: 15, color: Theme.of(context).colorScheme.fabTextColor),
           ),
         ],
       ),

@@ -17,8 +17,7 @@ class MainPageCubit extends Cubit<MainPageState> {
   }
 
   void changeThemeMode() {
-    final newTheme =
-        state.themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    final newTheme = state.themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
 
     emit(
       state.copyWith(themeMode: newTheme),

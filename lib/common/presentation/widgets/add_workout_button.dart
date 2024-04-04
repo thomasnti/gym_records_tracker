@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/workout/presentation/bloc/workout/workout_bloc.dart';
 import '../../../features/workout/presentation/pages/add_workout_page.dart';
+import '../theme/app_theme.dart';
 
 class AddWorkoutButton extends StatelessWidget {
   const AddWorkoutButton({super.key});
@@ -38,17 +39,19 @@ class _WorkoutButtonLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fabColor = Theme.of(context).colorScheme.fabTextColor;
     final Icon labelIcon = workoutState.workoutFinished
-        ? const Icon(Icons.add)
-        : const Icon(Icons.keyboard_arrow_up_rounded);
+        ? Icon(Icons.add, color: fabColor)
+        : Icon(Icons.keyboard_arrow_up_rounded, color: fabColor);
 
     return Row(
       children: [
         labelIcon,
         Text(
           workoutState.workoutFinished ? 'Begin workout' : 'Resume workout',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
+            color: Theme.of(context).colorScheme.fabTextColor,
           ),
         ),
       ],

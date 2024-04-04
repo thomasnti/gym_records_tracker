@@ -52,8 +52,7 @@ class GymRecords extends StatelessWidget {
       ],
       child: BlocBuilder<MainPageCubit, MainPageState>(
         builder: (context, state) {
-          final themeMode =
-              state.themeMode == ThemeMode.light ? AppTheme.lightTheme : AppTheme.darkTheme;
+          final themeMode = state.themeMode == ThemeMode.light ? lightTheme : darkTheme;
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,

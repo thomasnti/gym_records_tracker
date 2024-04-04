@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../../../../common/presentation/widgets/add_workout_button.dart';
 import '../../../../../dependency_injection/dependency_injection.dart';
 import '../../../../workout/domain/entities/workout.dart';
+import '../../cubit/main_page_cubit.dart';
 import 'bloc/workout_log_bloc.dart';
 
 class WorkoutLogPage extends StatelessWidget {
@@ -70,27 +71,31 @@ class WorkoutLogPage extends StatelessWidget {
                           ),
                           child: Stack(
                             children: [
-                              Container(
-                                // alignment: Alignment.centerLeft,
-                                width: double.infinity, // takes the available space
-                                constraints: const BoxConstraints(minHeight: 60),
-                                decoration: BoxDecoration(
-                                  color: Colors.lightGreen.shade100,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: workout.exercises
-                                        .map(
-                                          (e) => Text(
-                                            '${e.exerciseSets.length}x  ${e.exerciseName}',
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
+                              BlocBuilder<MainPageCubit, MainPageState>(
+                                // Container won't rebuild when changing theme. So, I put a bloc builder
+                                builder: (context, state) {
+                                  return Container(
+                                    width: double.infinity, // takes the available space
+                                    constraints: const BoxConstraints(minHeight: 60),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.primaryContainer,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: workout.exercises
+                                            .map(
+                                              (e) => Text(
+                                                '${e.exerciseSets.length}x  ${e.exerciseName}',
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                               Positioned(
                                 top: 8, // same as padding
