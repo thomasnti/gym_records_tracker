@@ -35,10 +35,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
         icon: Icon(Icons.fitness_center),
         label: 'Exercises',
       ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.leaderboard),
-        label: 'Statistics',
-      )
+      //TODO: Implement later (comment out for version 1 in production)
+      // BottomNavigationBarItem(
+      //   icon: Icon(Icons.leaderboard),
+      //   label: 'Statistics',
+      // )
     ];
   }
 
