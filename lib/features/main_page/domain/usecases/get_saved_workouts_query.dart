@@ -23,7 +23,10 @@ class GetSavedWorkoutsQueryHandler extends IRequestHandler<List<Workout>, GetSav
       final fullDateParts = _dateTimeService.getFullDateParts(workout.workoutDate);
 
       result.add(
-        workout.copyWith(workoutDateParts: fullDateParts, endTime: '02:30'),
+        workout.copyWith(
+          workoutDateParts: fullDateParts,
+          endTime: workout.endTime,
+        ),
       );
     }
 
