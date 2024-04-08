@@ -8,7 +8,6 @@ import '../../../../domain/entities/exercise_set.dart';
 import '../../../../domain/usecases/exercise_set_changed.dart';
 import '../../../../domain/usecases/get_available_exercises_by_muscle_group.dart';
 import '../../../../domain/usecases/get_exercise_info_by_exercise_query.dart';
-import '../../workout/workout_bloc.dart';
 
 part 'exercise_state.dart';
 
@@ -30,9 +29,9 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   Future<void> onWeightChanged(
       String newWeight, int setNumber, int? workoutId, int exerciseNum) async {
-    // NA VALW DEBOUNCE GIATI O XRHSTHS THA PLHKTROLOGEI GRHGORA
+    //TODO: NA VALW DEBOUNCE GIATI O XRHSTHS THA PLHKTROLOGEI GRHGORA
     print(newWeight);
-    if (workoutId == null) {
+    if (workoutId == null || newWeight.isEmpty) {
       return;
     }
 
@@ -46,8 +45,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   }
 
   Future<void> onRepsChanged(String newReps, int setNumber, int? workoutId, int exerciseNum) async {
-    print(newReps);
-    if (workoutId == null) {
+    if (workoutId == null || newReps.isEmpty) {
       return;
     }
 

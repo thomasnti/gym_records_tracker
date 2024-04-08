@@ -45,3 +45,5 @@ class CopySetEvent extends WorkoutEvent {
 
   const CopySetEvent(this.exerciseIndex, this.setIndex);
 }
+
+class GoFromBodyPartsToWorkoutEvent extends WorkoutEvent {}

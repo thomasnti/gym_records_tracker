@@ -39,6 +39,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<DeleteExerciseEvent>(_onDeleteExerciseEvent);
     on<DeleteSetEvent>(_onDeleteSetEvent);
     on<CopySetEvent>(_onCopySetEvent);
+    on<GoFromBodyPartsToWorkoutEvent>(_onGoFromBodyPartsToWorkoutEvent);
   }
 
   FutureOr<void> _onSelectBodyPart(
@@ -208,6 +209,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
 
     emit(state.copyWith(
       exercises: updatedExercises,
+    ));
+  }
+
+  FutureOr<void> _onGoFromBodyPartsToWorkoutEvent(
+      GoFromBodyPartsToWorkoutEvent event, Emitter<WorkoutState> emit) {
+    emit(state.copyWith(
+      showBodyParts: false,
     ));
   }
 }

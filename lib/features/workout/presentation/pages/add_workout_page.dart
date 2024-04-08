@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,10 +29,16 @@ class AddWorkoutPage extends StatelessWidget {
               centerTitle: true,
               title: Text(getIt<DateTimeService>().formatToMonthNameDay(DateTime.now())),
               leading: IconButton(
-                icon: const Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
+                icon: state.showBodyParts // different arrow when we show the bodyParts
+                    ? const Icon(Icons.arrow_back)
+                    : const Icon(Icons.keyboard_arrow_down_rounded),
+                onPressed: () {
+                  if (state.showBodyParts) {
+                    context.read<WorkoutBloc>().add(GoFromBodyPartsToWorkoutEvent());
+                    return;
+                  }
+                  Navigator.of(context).pop();
+                },
               ),
               actions: [
                 TextButton(
