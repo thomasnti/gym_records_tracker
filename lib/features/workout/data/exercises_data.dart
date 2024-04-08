@@ -7,41 +7,91 @@ List<ExerciseInfo> exercisesData = [
     'Grip the barbell slightly wider than shoulder-width apart, lowering it to your chest.',
     'Press the barbell upward until your arms are fully extended, then lower it back down under control.'
   ]),
-  ExerciseInfo('Barbell Row', BodyParts.back, 'barbell_row', []),
+  ExerciseInfo('Barbell Row', BodyParts.back, 'barbell_row', [
+    'Stand with your feet shoulder-width apart, holding a barbell with an overhand grip.',
+    'Bend your knees slightly and hinge at your hips, keeping your back straight.',
+    'Pull the barbell towards your lower chest, squeezing your shoulder blades together, then lower it back down with control.',
+  ]),
   ExerciseInfo(
-      'Seated Barbell Shoulder Press', BodyParts.shoulders, 'smith_seated_shoulder_press', []),
-  ExerciseInfo('Pull-ups', BodyParts.back, 'pull_ups', []),
-  ExerciseInfo('Bicep curls', BodyParts.biceps, 'dumbbell_seated_bicep_curl', []),
-  ExerciseInfo('Tricep extension', BodyParts.triceps, 'cable_rope_tricep_extension', []),
+      'Seated Barbell Shoulder Press', BodyParts.shoulders, 'smith_seated_shoulder_press', [
+    'Sit on a bench with back support, holding a barbell at shoulder height with an overhand grip.',
+    'Press the barbell overhead until your arms are fully extended, then lower it back down to shoulder height.',
+  ]),
+  ExerciseInfo('Pull-ups', BodyParts.back, 'pull_ups', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Bicep curls', BodyParts.biceps, 'dumbbell_seated_bicep_curl', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Tricep extension', BodyParts.triceps, 'cable_rope_tricep_extension', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Incline Smith Machine Bench Press', BodyParts.chest, 'smith_incline_bench_press', [
+    '',
+    '',
+    '',
+  ]),
   ExerciseInfo(
-      'Incline Smith Machine Bench Press', BodyParts.chest, 'smith_incline_bench_press', []),
-  ExerciseInfo(
-      'Seated Lateral Raise', BodyParts.shoulders, 'dumbbell_seated_bent_arm_lateral_raise', []),
-  ExerciseInfo('Arnold Press', BodyParts.shoulders, 'arnold_press', []),
-  ExerciseInfo('Dips', BodyParts.chest, 'chest_dips', []),
-  ExerciseInfo('Lat Pull-down', BodyParts.back, 'lat_pulldown', []),
-  ExerciseInfo('Seated Cable Row', BodyParts.back, 'seated_cable_row', []),
-  ExerciseInfo('Machine Chest Press', BodyParts.chest, 'machine_chest_press', []),
-  ExerciseInfo('Chest fly', BodyParts.chest, 'chest_fly', []),
-  ExerciseInfo('Squats', BodyParts.legs, 'barbell_squat', []),
-  ExerciseInfo('Smith Squats', BodyParts.legs, 'smith_squat', []),
-  ExerciseInfo('Calf Raises', BodyParts.legs, 'calf_raises', []),
+      'Seated Lateral Raise', BodyParts.shoulders, 'dumbbell_seated_bent_arm_lateral_raise', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Arnold Press', BodyParts.shoulders, 'arnold_press', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Dips', BodyParts.chest, 'chest_dips', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Lat Pull-down', BodyParts.back, 'lat_pulldown', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Seated Cable Row', BodyParts.back, 'seated_cable_row', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Machine Chest Press', BodyParts.chest, 'machine_chest_press', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Chest fly', BodyParts.chest, 'chest_fly', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Squats', BodyParts.legs, 'barbell_squat', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Smith Squats', BodyParts.legs, 'smith_squat', [
+    '',
+    '',
+    '',
+  ]),
+  ExerciseInfo('Calf Raises', BodyParts.legs, 'calf_raises', [
+    '',
+    '',
+    '',
+  ]),
 ];
 
-// Bench Press (chest):
 
-// Lie flat on a bench with your feet planted firmly on the floor.
-// Grip the barbell slightly wider than shoulder-width apart, lowering it to your chest.
-// Press the barbell upward until your arms are fully extended, then lower it back down under control.
-// Barbell Row (back):
 
-// Stand with your feet shoulder-width apart, holding a barbell with an overhand grip.
-// Bend your knees slightly and hinge at your hips, keeping your back straight.
-// Pull the barbell towards your lower chest, squeezing your shoulder blades together, then lower it back down with control.
-// Seated Barbell Shoulder Press (shoulders):
-
-// Sit on a bench with back support, holding a barbell at shoulder height with an overhand grip.
-// Press the barbell overhead until your arms are fully extended, then lower it back down to shoulder height.
 // Pull-ups (back):
 
 // Grip a pull-up bar with your hands slightly wider than shoulder-width apart, palms facing away.
