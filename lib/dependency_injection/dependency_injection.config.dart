@@ -84,8 +84,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i17.WorkoutLogBloc>(
         () => _i17.WorkoutLogBloc(gh<_i6.Mediator>()));
     gh.lazySingleton<_i18.IDB>(() => _i19.MobileDb(gh<_i11.LogService>()));
-    gh.lazySingleton<_i20.WorkoutRepo>(
-        () => _i21.WorkoutRepoImpl(gh<_i18.IDB>()));
+    gh.lazySingleton<_i20.WorkoutRepo>(() => _i21.WorkoutRepoImpl(
+          gh<_i18.IDB>(),
+          gh<_i11.LogService>(),
+        ));
     gh.lazySingleton<_i22.AddExerciseCommandHandler>(
         () => _i22.AddExerciseCommandHandler(gh<_i20.WorkoutRepo>()));
     gh.factory<_i23.AddSetToExerciseQueryHandler>(
@@ -106,7 +108,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i29.ExerciseSetChangedHandler>(
         () => _i29.ExerciseSetChangedHandler(gh<_i20.WorkoutRepo>()));
     gh.lazySingleton<_i30.FinishWorkoutCommandHandler>(
-        () => _i30.FinishWorkoutCommandHandler(gh<_i20.WorkoutRepo>()));
+        () => _i30.FinishWorkoutCommandHandler(
+              gh<_i20.WorkoutRepo>(),
+              gh<_i3.DateTimeService>(),
+            ));
     gh.factory<_i31.GetSavedWorkoutsQueryHandler>(
         () => _i31.GetSavedWorkoutsQueryHandler(
               gh<_i20.WorkoutRepo>(),

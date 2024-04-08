@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/domain/device/database/table_field.dart';
+import '../../../../common/domain/services/log_service.dart';
 import '../../../../common/infrastructure/device/database/i_db.dart';
 import '../../domain/entities/exercise.dart';
 import '../../domain/entities/workout.dart';
@@ -11,6 +12,7 @@ import '../models/workout_model.dart';
 @LazySingleton(as: WorkoutRepo)
 class WorkoutRepoImpl extends WorkoutRepo {
   final IDB _db;
+  final LogService _logService;
 
   final _tableName = 'WORKOUTS_HISTORY';
   final _tableFields = <TableField>[
@@ -38,7 +40,10 @@ class WorkoutRepoImpl extends WorkoutRepo {
     )
   ];
 
-  WorkoutRepoImpl(this._db);
+  WorkoutRepoImpl(
+    this._db,
+    this._logService,
+  );
   @override
   Future<int> saveWorkout(Workout workout) async {
     // https://github.com/tekartik/sqflite/blob/master/sqflite/doc/supported_types.md
@@ -82,7 +87,7 @@ class WorkoutRepoImpl extends WorkoutRepo {
     required int workoutId,
     Exercise? exerciseToAdd,
     List<Exercise> existingWorkoutExercises = const [],
-    Workout? workoutToUpdate,
+    Workout? workoutToFinish,
   }) async {
     Map<String, String> setClause = {};
     final exercisesBuffer = StringBuffer(); // the data to update
@@ -99,9 +104,11 @@ class WorkoutRepoImpl extends WorkoutRepo {
 
     setClause = {'EXERCISES': '[$exercisesBuffer]'};
 
-    if (workoutToUpdate != null) {
-      setClause['END_TIME'] = workoutToUpdate.endTime!;
+    if (workoutToFinish != null) {
+      setClause['END_TIME'] = workoutToFinish.endTime!;
     }
+
+    _logService.log(setClause.toString());
 
     await _db.update(
       _tableName,

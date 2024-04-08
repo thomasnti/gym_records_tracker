@@ -37,12 +37,13 @@ class DebugConsoleService extends LogService {
       return;
     }
     if (eventName.contains('HTTP')) {
+      developer.log('$_yellow$message$_reset', name: eventName);
       return;
     }
     if (eventName.contains('ERROR')) {
       return;
     }
 
-    developer.log('--> $message', name: eventName);
+    developer.log('--> $_red$message$_reset', name: eventName);
   }
 }
