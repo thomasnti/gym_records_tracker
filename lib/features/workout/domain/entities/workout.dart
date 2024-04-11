@@ -33,7 +33,7 @@ class Workout {
   });
 
   String? get durationInMins {
-    if (endTime == null) {
+    if (endTime == null || endTime!.isEmpty) {
       return null;
     }
 

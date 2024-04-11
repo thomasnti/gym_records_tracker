@@ -35,6 +35,15 @@ class WorkoutLogPage extends StatelessWidget {
                   );
                 }
 
+                if (state.workouts.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      "You have no workouts in your log.  Press 'Begin Workout' to create one.",
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }
+
                 return RefreshIndicator(
                   onRefresh: () async {
                     context.read<WorkoutLogBloc>().add(GetSavedWorkoutsEvent());
