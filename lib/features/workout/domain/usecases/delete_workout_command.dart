@@ -1,5 +1,5 @@
-import 'package:mediatr/mediatr.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mediatr/mediatr.dart';
 
 import '../repositories/workout_repo.dart';
 

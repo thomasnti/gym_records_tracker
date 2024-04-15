@@ -30,7 +30,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   Future<void> onWeightChanged(
       String newWeight, int setNumber, int? workoutId, int exerciseNum) async {
     //TODO: NA VALW DEBOUNCE GIATI O XRHSTHS THA PLHKTROLOGEI GRHGORA
-    print(newWeight);
     if (workoutId == null || newWeight.isEmpty) {
       return;
     }
