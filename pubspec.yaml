@@ -38,7 +38,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  husky: ^0.1.6
+  husky: ^0.1.7
   injectable_generator: ^2.1.5
   json_serializable: ^6.6.2
   mocktail: ^0.3.0
