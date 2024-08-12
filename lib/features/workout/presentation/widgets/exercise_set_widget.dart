@@ -137,8 +137,8 @@ class _ExerciseSetWidgetState extends State<ExerciseSetWidget> {
                                 color: Colors.red,
                               ),
                             ),
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all(Colors.red),
+                            style: const ButtonStyle(
+                              foregroundColor: WidgetStatePropertyAll(Colors.red),
                             ),
                           )
                         ],

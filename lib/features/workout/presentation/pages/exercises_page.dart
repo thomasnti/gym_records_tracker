@@ -103,7 +103,7 @@ class ExerciseInfoDialog extends StatelessWidget {
                       .entries
                       .map((el) => Text('${el.key + 1}. ${el.value}'))
                       .toList()),
-              ButtonBar(
+              OverflowBar(
                 alignment: MainAxisAlignment.center,
                 children: [
                   TextButton(

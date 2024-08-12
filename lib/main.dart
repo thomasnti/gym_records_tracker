@@ -3,7 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'common/presentation/theme/app_theme.dart';
 import 'dependency_injection/dependency_injection.dart';
@@ -15,7 +15,7 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kDebugMode) {
-    await Wakelock.enable();
+    await WakelockPlus.enable();
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
